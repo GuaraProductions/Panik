@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://cd7rm4fbfq303"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_7ldlu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
+albedo_color = Color(1, 0.345098, 0.305882, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6ggev"]
+material = SubResource("StandardMaterial3D_7ho35")
+radius = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_61oeu"]
+size = Vector3(0.807007, 1.91211, 0.84668)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6g78y"]
+radius = 0.05
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tlgxm"]
+size = Vector3(1.72482, 1.60419, 1.33942)
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_7ldlu")
+patience_timer = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_6ggev")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00958252, 0.0273438, -0.0151367)
+shape = SubResource("BoxShape3D_61oeu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0171208, -0.999853, 0, 0.999853, 0.0171208, 0.00229216, 0.676226, 0.598399)
+mesh = SubResource("CapsuleMesh_6g78y")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.0260249, 0.679637, 0.524245)
+cull_mask = 1047553
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="UpdatePursuitTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="RageTimer" type="Timer" parent="."]
+
+[node name="StalkerPatienceTimer" type="Timer" parent="."]
+
+[node name="PlayerCollision" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="Collision" type="CollisionShape3D" parent="PlayerCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386149, 0.19582, -0.0553284)
+shape = SubResource("BoxShape3D_tlgxm")
+
+[connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
+[connection signal="timeout" from="RageTimer" to="." method="_on_rage_timer_timeout"]
+[connection signal="timeout" from="StalkerPatienceTimer" to="." method="_on_stalker_patience_timer_timeout"]
+[connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]

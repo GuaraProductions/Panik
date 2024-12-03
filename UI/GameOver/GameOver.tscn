@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxklmw7f28uy2"]
+
+[ext_resource type="Script" path="res://UI/GameOver/GameOver.gd" id="1_434yv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nmh7f"]
+font_size = 90
+font_color = Color(1, 0.211765, 0.235294, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jqbq7"]
+font_size = 28
+
+[node name="GameOver" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.103744, 0.103744, 0.103744, 1)
+script = ExtResource("1_434yv")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 105
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 35
+
+[node name="Title" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_nmh7f")
+
+[node name="Subtitle" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+text = "Você morreu"
+label_settings = SubResource("LabelSettings_jqbq7")
+horizontal_alignment = 1

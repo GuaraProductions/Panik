@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwlvvv4tyx75u"]
+
+[ext_resource type="PackedScene" uid="uid://csfsf2mjvknfn" path="res://assets/models/Tree.glb" id="1_ygbtw"]
+[ext_resource type="ArrayMesh" uid="uid://3mk3dpve7sax" path="res://Forest/Trees/Tree.mesh" id="2_wejj2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ifi31"]
+height = 5.04665
+radius = 1.06088
+
+[node name="Tree" instance=ExtResource("1_ygbtw")]
+
+[node name="Tree_green01_Cube_007" parent="." index="0"]
+mesh = ExtResource("2_wejj2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tree_green01_Cube_007" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tree_green01_Cube_007/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54411, 0)
+shape = SubResource("CylinderShape3D_ifi31")

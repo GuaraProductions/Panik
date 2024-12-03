@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://bml2r031pn5qb"]
+
+[ext_resource type="Script" path="res://Test/MultiMeshTest.gd" id="1_aucp2"]
+[ext_resource type="Resource" uid="uid://ixfgne8nn3j6" path="res://Entities/Player/PlayerControl.tres" id="2_0afhs"]
+[ext_resource type="ArrayMesh" uid="uid://dslxn0y2b2414" path="res://Forest/Models/TreeMesh.tres" id="2_sta11"]
+[ext_resource type="Script" path="res://Test/TestPlayer.gd" id="3_37equ"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_fopt7"]
+transform_format = 1
+instance_count = 2
+mesh = ExtResource("2_sta11")
+buffer = PackedFloat32Array(0, 1.96182e-44, 1.4013e-45, 0, 2.10195e-44, 1.96182e-44, 1.4013e-45, 1.82169e-44, 2.8026e-45, 1.4013e-45, 1.96182e-44, 1.82169e-44, 2.8026e-45, 1.68156e-44, 4.2039e-45, 2.8026e-45, 1.82169e-44, 1.68156e-44, 4.2039e-45, 1.54143e-44, 5.60519e-45, 4.2039e-45, 1.68156e-44, 1.54143e-44)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qpg73"]
+
+[sub_resource type="Sky" id="Sky_o52dc"]
+sky_material = SubResource("ProceduralSkyMaterial_qpg73")
+
+[sub_resource type="Environment" id="Environment_oshgg"]
+background_mode = 2
+sky = SubResource("Sky_o52dc")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_aucp2")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_fopt7")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("3_37equ")
+player_control = ExtResource("2_0afhs")
+
+[node name="Camera" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.344798, 2.49438)
+current = true
+fov = 102.889
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_oshgg")

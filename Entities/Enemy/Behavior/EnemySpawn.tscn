@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://e6kg50hskinm"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/Behavior/EnemySpawn.gd" id="1_2qqx2"]
+
+[node name="EnemySpawn" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.9377, 0.309729, -67.8192)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_2qqx2")

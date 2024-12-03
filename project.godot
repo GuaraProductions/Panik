@@ -11,12 +11,22 @@ config_version=5
 [application]
 
 config/name="GodotSlender"
+run/main_scene="res://UI/MainMenu/MainMenu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=2
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/vsync/vsync_mode=0
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [input]
 
@@ -56,6 +66,16 @@ game_grab_page={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_3="EnemySpawn"
+
+[physics]
+
+3d/default_gravity_vector=Vector3(0, -35, 0)
+
 [rendering]
 
 renderer/rendering_method="mobile"
+occlusion_culling/occlusion_rays_per_thread=1024
+occlusion_culling/use_occlusion_culling=true

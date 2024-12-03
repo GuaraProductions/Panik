@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctwryrg36g2ul"]
+
+[ext_resource type="Script" path="res://Test/ScripFixingTest.gd" id="1_qmt7h"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ns1u4"]
+height = 5.16191
+radius = 1.00858
+
+[node name="ScripFixingTest" type="Node3D"]
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="TreesOuterCircle" type="Node3D" parent="Trees"]
+script = ExtResource("1_qmt7h")
+
+[node name="Tree1" type="StaticBody3D" parent="Trees/TreesOuterCircle"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees/TreesOuterCircle/Tree1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142627, 2.40579, -0.126448)
+shape = SubResource("CylinderShape3D_ns1u4")

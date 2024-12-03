@@ -1,32 +1,51 @@
 extends Node3D
 
 @onready var world_environment = $WorldEnvironment
-@onready var directional_light : DirectionalLight3D = $DirectionalLight3D
 
-enum LightMode {
-	Daylight,
-	Night_time
-}
-
-@export var light_mode : LightMode = LightMode.Daylight
-
-@export var pages : Array[Paper] 
 var page_counter : int = 0
 var num_pages : int = 0
 
 @export var hud : HUD
-@export var player : Player
+@export var game_over_scene : PackedScene
+@export var you_win_scene : PackedScene
 
 func _ready() -> void:
-	num_pages = pages.size()
-	if light_mode == LightMode.Night_time:
-		directional_light.light_energy = 0.05
-		
-	elif light_mode == LightMode.Daylight:
-		directional_light.light_energy = 1.36
+	num_pages = get_tree().get_node_count_in_group(Paper.GROUP_NAME)
 	
 func player_grabbed_page(page: Paper) -> void:
 	page_counter += 1
-	pages.erase(page)
-	page.queue_free()
+	page.grab()
 	hud.show_page_counter(page_counter, num_pages)
+
+	if page_counter >= num_pages:
+		player_got_all_pages()
+
+func _on_enemy_spawn_handler_spawn_enemy(enemy_spawner: EnemySpawn, enemy: Enemy) -> void:
+	
+	var player : Player = get_random_player()
+
+	var enemy_spawn_position = enemy_spawner.find_most_distant_from_player(player.global_position)
+	
+	enemy.global_position = enemy_spawn_position
+	
+func get_random_player() -> Player:
+	var players = get_tree().get_nodes_in_group(Player.GROUP_NAME) as Array[Player]
+		
+	return players[0]
+	
+func get_random_enemy() -> Enemy:
+	var enemies = get_tree().get_nodes_in_group(Enemy.GROUP_NAME)
+	
+	var enemy : Enemy = enemies[0] as Enemy
+
+	print("enemy is enemy: ", enemy is Enemy)
+	
+	return enemies[0]
+
+func player_got_all_pages() -> void:
+	
+	await get_tree().create_timer(5).timeout
+	get_tree().change_scene_to_packed(you_win_scene)
+
+func enemy_got_player() -> void:
+	get_tree().change_scene_to_packed.call_deferred(game_over_scene)
