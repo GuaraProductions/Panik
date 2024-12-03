@@ -1,6 +1,6 @@
 extends Node3D
 
-signal spawn_enemy(spawn: EnemySpawn, enemy, Enemy)
+signal spawn_enemy(spawn: EnemySpawn, enemy : Enemy)
 
 @export_range(0.01,1,0.01) var chance_to_spawn : float = 0.25
 

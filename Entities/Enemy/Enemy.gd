@@ -3,7 +3,7 @@ class_name Enemy extends CharacterBody3D
 signal running_after_player()
 signal player_collided()
 
-const GROUP_NAME : String = "Enemy"
+const GROUP_NAME : String = "Slender"
 
 enum EnemyState {
 	RunningAfter,
@@ -36,7 +36,6 @@ var current_target : Vector3
 var curr_player : Player
 
 func _ready() -> void:
-	add_to_group(GROUP_NAME)
 	player_collided.connect(get_tree().get_current_scene().enemy_got_player)
 	enemy_setup.call_deferred()
 	
@@ -52,10 +51,6 @@ func enemy_setup() -> void:
 	
 func _physics_process(_delta: float) -> void:
 
-	if is_looking_at_enemy():
-		print(":)")
-	else:
-		print(":(")
 
 	match current_state:
 		EnemyState.RunningAfter:

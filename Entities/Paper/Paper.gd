@@ -7,10 +7,6 @@ const GROUP_NAME := "Paper"
 @onready var audio_stream_player : AudioStreamPlayer3D = $AudioStreamPlayer3D
 @onready var meshes : Node3D = $Meshes
 
-func _ready() -> void:
-	if active:
-		add_to_group(GROUP_NAME)
-
 func grab() -> void:
 
 	if not active:

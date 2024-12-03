@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cd7rm4fbfq303"]
 
-[ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_7ldlu"]
+[ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_s6ptl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
 albedo_color = Color(1, 0.345098, 0.305882, 1)
@@ -20,8 +20,7 @@ height = 1.0
 size = Vector3(1.72482, 1.60419, 1.33942)
 
 [node name="Enemy" type="CharacterBody3D"]
-script = ExtResource("1_7ldlu")
-patience_timer = 2.0
+script = ExtResource("1_s6ptl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_6ggev")
