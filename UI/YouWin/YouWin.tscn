@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/YouWin/YouWin.gd" id="1_8t0xv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mwx7u"]
-font_size = 90
+font_size = 48
 font_color = Color(0.634829, 0.765791, 0.352729, 1)
 
 [node name="YouWin" type="ColorRect"]
@@ -22,16 +22,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 105
-theme_override_constants/margin_top = 105
-theme_override_constants/margin_right = 105
-theme_override_constants/margin_bottom = 105
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Margin/VBox"]
 layout_mode = 2
 text = "Você venceu do CLT!"
 label_settings = SubResource("LabelSettings_mwx7u")
 horizontal_alignment = 1
+
+[node name="VoltarAoMenu" type="Button" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Voltar ao Menu"
+
+[connection signal="pressed" from="Margin/VBox/VoltarAoMenu" to="." method="_on_voltar_ao_menu_pressed"]

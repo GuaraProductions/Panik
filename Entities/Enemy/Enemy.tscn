@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cd7rm4fbfq303"]
+[gd_scene load_steps=9 format=3 uid="uid://cd7rm4fbfq303"]
 
 [ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_s6ptl"]
+[ext_resource type="Script" path="res://Entities/PerceivingCamera.gd" id="2_rp2mf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
 albedo_color = Color(1, 0.345098, 0.305882, 1)
@@ -17,7 +18,10 @@ radius = 0.05
 height = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tlgxm"]
-size = Vector3(1.72482, 1.60419, 1.33942)
+size = Vector3(1.72482, 1.60419, 1.76318)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iqarr"]
+size = Vector3(0.78656, 1.85303, 1)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_s6ptl")
@@ -36,6 +40,7 @@ mesh = SubResource("CapsuleMesh_6g78y")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.0260249, 0.679637, 0.524245)
 cull_mask = 1047553
+script = ExtResource("2_rp2mf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -43,19 +48,25 @@ cull_mask = 1047553
 wait_time = 0.2
 autostart = true
 
-[node name="RageTimer" type="Timer" parent="."]
-
 [node name="StalkerPatienceTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [node name="PlayerCollision" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 8
 
 [node name="Collision" type="CollisionShape3D" parent="PlayerCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386149, 0.19582, -0.0553284)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386149, 0.19582, -0.0591126)
 shape = SubResource("BoxShape3D_tlgxm")
 
+[node name="FootstepDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FootstepDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0284729, 0.10376, 0)
+shape = SubResource("BoxShape3D_iqarr")
+
 [connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
-[connection signal="timeout" from="RageTimer" to="." method="_on_rage_timer_timeout"]
 [connection signal="timeout" from="StalkerPatienceTimer" to="." method="_on_stalker_patience_timer_timeout"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]

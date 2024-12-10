@@ -31,12 +31,12 @@ func _on_enemy_spawn_handler_spawn_enemy(enemy_spawner: EnemySpawn, enemy: Enemy
 func get_random_player() -> Player:
 	var players = get_tree().get_nodes_in_group(Player.GROUP_NAME)
 		
-	return players[0]
+	return players.pick_random()
 	
 func get_random_enemy() -> Enemy:
 	var enemies = get_tree().get_nodes_in_group(Enemy.GROUP_NAME)
 	
-	return enemies[0]
+	return enemies.pick_random()
 
 func player_got_all_pages() -> void:
 	

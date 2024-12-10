@@ -13,6 +13,7 @@ radius = 1.00858
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.8497, -0.268992, -20.2562)
 script = ExtResource("1_b0k5g")
 multimesh = ExtResource("2_cy7no")
+render_trees_in_editor = null
 
 [node name="Tree1" type="StaticBody3D" parent="TreesOuterCircle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2226, 0.509806, -89.9913)
@@ -3328,6 +3329,7 @@ shape = SubResource("CylinderShape3D_ns1u4")
 [node name="TreesInnerCircle1" type="Node3D" parent="."]
 script = ExtResource("1_b0k5g")
 multimesh = ExtResource("2_cy7no")
+render_trees_in_editor = null
 
 [node name="Tree1" type="StaticBody3D" parent="TreesInnerCircle1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93.8438, 2.5027e-06, -76.5062)
@@ -3570,6 +3572,7 @@ shape = SubResource("CylinderShape3D_ns1u4")
 [node name="TreesInnerCircle2" type="Node3D" parent="."]
 script = ExtResource("1_b0k5g")
 multimesh = ExtResource("2_cy7no")
+render_trees_in_editor = null
 
 [node name="Tree1" type="StaticBody3D" parent="TreesInnerCircle2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114.65, -2.3842e-07, -41.4372)

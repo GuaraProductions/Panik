@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1tsuuoctjlee"]
+[gd_scene load_steps=5 format=3 uid="uid://d1tsuuoctjlee"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_2khi4"]
 [ext_resource type="PackedScene" uid="uid://ci7qbj410ksj7" path="res://Forest/ForestLevel.tscn" id="2_5xwn5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v4osb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oxuoh"]
 font_size = 48
@@ -29,6 +31,7 @@ theme_override_constants/margin_right = 35
 theme_override_constants/margin_bottom = 35
 
 [node name="Title" type="Label" parent="Margin"]
+material = SubResource("ShaderMaterial_v4osb")
 layout_mode = 2
 size_flags_vertical = 0
 text = "Fuja da Sarrada"

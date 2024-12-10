@@ -2,12 +2,29 @@
 extends Node3D
 
 @export var multimesh : MultiMesh
+@export var render_trees_in_editor : bool = false : set = _set_render_trees_in_editor
+
+var trees_rendered : bool = false
+
+var multimesh_instance : MultiMeshInstance3D
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		remove_scene_instantiation_from_nodes()
-	else:
+	
+	if render_trees_in_editor or not Engine.is_editor_hint():
 		_setup_multimesh()
+		
+func _set_render_trees_in_editor(value: bool) -> void:
+	render_trees_in_editor = value
+	
+	if render_trees_in_editor and not trees_rendered:
+		_setup_multimesh()
+	elif render_trees_in_editor and trees_rendered:
+		multimesh_instance.visible = true
+	elif not render_trees_in_editor:
+		if multimesh_instance:
+			multimesh_instance.visible = false
 
 func remove_scene_instantiation_from_nodes() -> void:
 	
@@ -52,11 +69,12 @@ func _remove_mesh_instances() -> void:
 				child.queue_free()
 
 func _setup_multimesh() -> void:
-	if find_child("MultiMeshInstance3D"):
+	
+	if multimesh_instance:
 		return
 		
 	# Create a MultiMeshInstance3D node
-	var multimesh_instance = MultiMeshInstance3D.new()
+	multimesh_instance = MultiMeshInstance3D.new()
 	
 	multimesh_instance.name = "MultiMeshInstance3D"
 	
@@ -68,6 +86,8 @@ func _setup_multimesh() -> void:
 	multimesh_instance.multimesh = new_multimesh
 	
 	add_child(multimesh_instance)
+	if Engine.is_editor_hint():
+		multimesh_instance.owner = get_tree().edited_scene_root
 	
 	var trees = get_children(true)
 	var counter : int = 0
@@ -81,3 +101,5 @@ func _setup_multimesh() -> void:
 																Basis(), 
 																tree.position))
 		counter += 1
+		
+	trees_rendered = true

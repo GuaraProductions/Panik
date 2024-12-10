@@ -26,13 +26,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 105
+theme_override_constants/margin_top = 35
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 35
 
 [node name="Title" type="Label" parent="Margin/VBox"]
@@ -45,3 +46,10 @@ layout_mode = 2
 text = "Você morreu"
 label_settings = SubResource("LabelSettings_jqbq7")
 horizontal_alignment = 1
+
+[node name="VoltarAoMenu" type="Button" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Voltar ao Menu"
+
+[connection signal="pressed" from="Margin/VBox/VoltarAoMenu" to="." method="_on_voltar_ao_menu_pressed"]
