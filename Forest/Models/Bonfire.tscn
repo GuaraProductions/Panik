@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://db0qwr1umcgej"]
+
+[ext_resource type="PackedScene" uid="uid://cmyot1n15mq1q" path="res://assets/models/Bonfire.glb" id="1_hx6xf"]
+[ext_resource type="PackedScene" uid="uid://connnx4rstt0s" path="res://assets/models/Tent.glb" id="2_t4tvw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p1oay"]
+size = Vector3(5.18289, 4.37183, 5.55377)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82tvy"]
+size = Vector3(3.61249, 2.55133, 3.30737)
+
+[node name="Bonfire" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_hx6xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0522251, -1.19209e-07, -0.116949)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Root Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03312, -10.6409)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Root Scene/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50929, 1.42273, 2.27689)
+shape = SubResource("BoxShape3D_p1oay")
+
+[node name="Root Scene2" parent="." instance=ExtResource("2_t4tvw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50364, -0.144487, -9.19273)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Root Scene2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45365, 0.340847, 9.2653)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Root Scene2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063385, 0.775665, -0.244995)
+shape = SubResource("BoxShape3D_82tvy")

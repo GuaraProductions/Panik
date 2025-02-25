@@ -19,5 +19,26 @@ func play_sound() -> bool:
 	
 	return true
 
+func stop_with_fade_out() -> bool:
+	
+	if not playing:
+		return false
+		
+	var tween = create_tween()
+	
+	var initial_value_sound = volume_db
+	
+	tween.tween_property(self, "volume_db", 0, 1.5)
+	
+	tween.play()
+	
+	await tween.finished
+	
+	stop()
+	
+	volume_db = initial_value_sound
+	
+	return true
+
 func _generate_random_pitch() -> void:
 	pitch_scale = randf_range(min_pitch, max_pitch)

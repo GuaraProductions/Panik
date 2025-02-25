@@ -1,7 +1,8 @@
 extends Node3D
 
-const straight_animation : String = "animation"
+const straight_animation : String = "running"
 const holster_animation : String = "holster"
+const holster_running_animation : String = "holster_running"
 
 @onready var light = $model/SpotLight3D
 @onready var animation = $AnimationPlayer
@@ -32,15 +33,18 @@ func turn_up() -> void:
 	
 	is_up = false
 	
-func toggle_light() -> void:
+func toggle_light(running: bool = false) -> void:
 	
 	if animation.is_playing():
 		return
 	
 	light.visible = not light.visible
+	
+	var curr_animation = holster_running_animation if running else holster_animation
+
 	if is_holstered:
-		animation.play_backwards(holster_animation)
+		animation.play_backwards(curr_animation)
 		is_holstered = false
 	else:
-		animation.play(holster_animation)
+		animation.play(curr_animation)
 		is_holstered = true

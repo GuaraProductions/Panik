@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cd7rm4fbfq303"]
+[gd_scene load_steps=10 format=3 uid="uid://cd7rm4fbfq303"]
 
 [ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_s6ptl"]
 [ext_resource type="Script" path="res://Entities/PerceivingCamera.gd" id="2_rp2mf"]
+[ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="3_74pd8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
 albedo_color = Color(1, 0.345098, 0.305882, 1)
@@ -11,14 +12,14 @@ material = SubResource("StandardMaterial3D_7ho35")
 radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_61oeu"]
-size = Vector3(0.807007, 1.91211, 0.84668)
+size = Vector3(0.570343, 1.91211, 0.472168)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6g78y"]
 radius = 0.05
 height = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tlgxm"]
-size = Vector3(1.72482, 1.60419, 1.76318)
+size = Vector3(1.72482, 2.09551, 1.48547)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iqarr"]
 size = Vector3(0.78656, 1.85303, 1)
@@ -27,14 +28,16 @@ size = Vector3(0.78656, 1.85303, 1)
 script = ExtResource("1_s6ptl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_6ggev")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00958252, 0.0273438, -0.0151367)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00297546, 0.0273438, -0.0466309)
 shape = SubResource("BoxShape3D_61oeu")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="Nose" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0171208, -0.999853, 0, 0.999853, 0.0171208, 0.00229216, 0.676226, 0.598399)
+visible = false
 mesh = SubResource("CapsuleMesh_6g78y")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -56,17 +59,30 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="Collision" type="CollisionShape3D" parent="PlayerCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386149, 0.19582, -0.0591126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386149, 0.441478, 0.0797411)
 shape = SubResource("BoxShape3D_tlgxm")
 
 [node name="FootstepDetector" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 128
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FootstepDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0284729, 0.10376, 0)
 shape = SubResource("BoxShape3D_iqarr")
 
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0770949, 1.0786, 0.244031)
+pixel_size = 0.002
+texture = ExtResource("3_74pd8")
+hframes = 5
+vframes = 5
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 35.0
+autostart = true
+
 [connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
 [connection signal="timeout" from="StalkerPatienceTimer" to="." method="_on_stalker_patience_timer_timeout"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

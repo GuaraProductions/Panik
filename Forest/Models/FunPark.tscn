@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bijxg34x7y0cc"]
+
+[ext_resource type="PackedScene" uid="uid://bbin3o7kuekb5" path="res://assets/models/Slide.glb" id="1_oqs2x"]
+[ext_resource type="PackedScene" uid="uid://3vsiikie0ns8" path="res://assets/models/Swing set.glb" id="2_xs41h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xrg3"]
+size = Vector3(1.19641, 4.78519, 6.83794)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ghb3w"]
+size = Vector3(4.65533, 5.69086, 7.55113)
+
+[node name="FunPark" type="Node3D"]
+
+[node name="Slide" parent="." instance=ExtResource("1_oqs2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.04133, 0, 0.258329)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Slide"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slide/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0243063, 2.34581, 0.0227938)
+shape = SubResource("BoxShape3D_3xrg3")
+
+[node name="Swing set" parent="." instance=ExtResource("2_xs41h")]
+transform = Transform3D(0.342233, 0, -0.939615, 0, 1, 0, 0.939615, 0, 0.342233, 9.66801, 0.31643, -4.23358)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Swing set"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Swing set/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.110832, 2.86148, 0.00838947)
+shape = SubResource("BoxShape3D_ghb3w")

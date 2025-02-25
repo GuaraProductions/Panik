@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://cmaw35gsgldyx"]
+[gd_scene load_steps=24 format=4 uid="uid://cmaw35gsgldyx"]
 
 [ext_resource type="Script" path="res://Entities/Player/Flashlight.gd" id="1_rjogj"]
 
@@ -281,34 +281,6 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_jglvh"]
-resource_name = "animation"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("model:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.153322, -0.289209)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("model:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.233333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.382646, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_0ky1r"]
 resource_name = "holster"
 length = 0.25
@@ -337,11 +309,68 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_jglvh"]
+resource_name = "running"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.153322, -0.289209)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("model:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.382646, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3qq4s"]
+resource_name = "holster_running"
+length = 0.2333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2333, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.153322, -0.289209), Vector3(0, 0.131037, -1.23197), Vector3(0, -0.0441644, -1.02176)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("model:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2333, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.382646, 0, 0), Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i6g00"]
 _data = {
 "RESET": SubResource("Animation_rog8v"),
-"animation": SubResource("Animation_jglvh"),
-"holster": SubResource("Animation_0ky1r")
+"holster": SubResource("Animation_0ky1r"),
+"holster_running": SubResource("Animation_3qq4s"),
+"running": SubResource("Animation_jglvh")
 }
 
 [node name="Flashlight" type="Node3D"]

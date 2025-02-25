@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://1o2tocirqcrh"]
+
+[ext_resource type="PackedScene" uid="uid://ctskmnwbeeo1n" path="res://assets/models/Billboard.glb" id="1_ut3jb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ukof0"]
+size = Vector3(0.497498, 5.59739, 4.5457)
+
+[node name="Sign" type="Node3D"]
+
+[node name="Billboard" parent="." instance=ExtResource("1_ut3jb")]
+transform = Transform3D(-0.892082, 0, -0.451874, 0, 1, 0, 0.451874, 0, -0.892082, 1.27541, 1.78294, -0.198228)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Billboard"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Billboard/StaticBody3D"]
+transform = Transform3D(0.497565, 0, 0.867427, 0, 1, 0, -0.867427, 0, 0.497565, 0.853927, 0.00889194, 0.476227)
+shape = SubResource("BoxShape3D_ukof0")

@@ -10,17 +10,27 @@ var num_pages : int = 0
 @export var you_win_scene : PackedScene
 
 func _ready() -> void:
+	
+	var paper_spawners = get_tree().get_nodes_in_group(PaperSpawner.GROUP_NAME)
+	
+	var paper_to_remove_1 = paper_spawners.pick_random()
+	var paper_to_remove_2 = paper_spawners.pick_random()
+	
+	paper_to_remove_1.remove_all_papers()
+	paper_to_remove_2.remove_all_papers()
+	
 	num_pages = get_tree().get_node_count_in_group(Paper.GROUP_NAME)
 	
 func player_grabbed_page(page: Paper) -> void:
 	page_counter += 1
-	page.grab()
+	if page:
+		page.grab()
 	hud.show_page_counter(page_counter, num_pages)
 
 	if page_counter >= num_pages:
 		player_got_all_pages()
 
-func _on_enemy_spawn_handler_spawn_enemy(enemy_spawner: EnemySpawn, enemy: Enemy) -> void:
+func _on_enemy_spawn_handler_spawn_enemy(enemy: Enemy) -> void:
 	
 	var player : Player = get_random_player()
 

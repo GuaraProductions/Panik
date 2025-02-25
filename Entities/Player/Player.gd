@@ -19,20 +19,26 @@ signal enemy_exited_screen()
 @export_category("Movement")
 @export var walking_speed = 4.5
 @export var running_speed = 8.5
+@export var exausted_speed = 3.5
 @export var acceleration = 4.0
 @export var friction = 16.0
+
+@export_category("Stamina")
+@export var max_stamina := 10
+@export var stamina_loss_speed = 5
+@export var stamina_recover_speed = 20
 
 const RAY_LENGTH = 1000
 
 @onready var camera = $Camera
 @onready var flashlight = $Camera/Flashlight
-@onready var raycast = $RayCast
+@onready var raycast = $Camera/RayCast
 
-@onready var spawner : Area3D = $SpawnerRanger
-
-@onready var footsteps_audio_player : RandomSFXAudioPlayer3D = $RandomAudioPlayer
+@onready var normal_footsteps : RandomSFXAudioPlayer3D = $NormalFootsteps
+@onready var fast_footsteps : RandomSFXAudioPlayer3D = $FastFootsteps
 @onready var flashlight_audio_player : SFXAudioPlayer3D = $FlashlightSounds
-@onready var footstep_activator: Area3D = $FootstepActivator
+@onready var breathing_sound : SFXAudioPlayer3D = $BreathingSound
+@onready var exausted_timer : Timer = $ExaustedTimer
 
 var direction_vector = Vector3.ZERO
 
@@ -48,21 +54,22 @@ var target_speed : float = walking_speed
 
 var movement_state : MovementState = MovementState.IDLE : set = _set_walking_mode
 
+var _is_stamina_recovering : bool = false
+var current_stamina : float = max_stamina
+
+
 func _ready() -> void:
 	enemy_in_scene = get_tree().current_scene.get_random_enemy()
 	add_to_group(GROUP_NAME)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _set_walking_mode(state: int) -> void:
+	
 	if state != movement_state and state != MovementState.IDLE:
-		footstep_activator.set_deferred("monitorable", true)
 		if state == MovementState.RUNNING:
 			flashlight.turn_down()
 		else: 
 			flashlight.turn_up()
-	else:
-		footstep_activator.set_deferred("monitorable", false)
-		
 		
 	movement_state = state
 
@@ -89,17 +96,20 @@ func _input(event: InputEvent) -> void:
 		
 	if event.is_action_pressed(player_control.flashlight):
 		flashlight_audio_player.play()
-		flashlight.toggle_light()
+		flashlight.toggle_light(movement_state == MovementState.RUNNING)
 		
 func _physics_process(delta: float) -> void:
 	
-	# Apply gravity
-	if not is_on_floor():
-		velocity += get_gravity() * delta  # Ensure gravity points downward on Y-axis
+	if looking_at_page and Input.get_action_strength(player_control.interact):
+		page_grabbed.emit(raycast.get_collider())
 		
 	looking_at_page = raycast.get_collider() != null
 	
 	enemy_visible = camera.is_looking_at(enemy_in_scene.global_position)
+	
+	# Apply gravity
+	if not is_on_floor():
+		velocity += get_gravity() * delta  # Ensure gravity points downward on Y-axis
 
 	# Get input and normalize
 	var input_vector = Vector2(
@@ -107,29 +117,41 @@ func _physics_process(delta: float) -> void:
 		Input.get_action_strength(player_control.down) - Input.get_action_strength(player_control.up)
 	).normalized()
 	
-	if looking_at_page and Input.get_action_strength(player_control.interact):
-		page_grabbed.emit(raycast.get_collider())
-	
-	target_speed = running_speed if Input.is_action_pressed(player_control.run) else walking_speed
+	if current_stamina < 1:
+		breathing_sound.play_sound()
+		exausted_timer.start()
 	
 	# Apply movement
 	if input_vector != Vector2.ZERO:
-		
-		footsteps_audio_player.play_random()
-		
-		if target_speed == running_speed:
+
+		if Input.is_action_pressed(player_control.run) and current_stamina > 1 and exausted_timer.is_stopped():
+			target_speed = running_speed
 			movement_state = MovementState.RUNNING
+			fast_footsteps.play_random()
+
+			_is_stamina_recovering = false
+			current_stamina = clampf(current_stamina - stamina_loss_speed * delta, 0 , max_stamina)
+			
 		else:
+			if not _is_stamina_recovering:
+				_is_stamina_recovering = true
+
+			target_speed = walking_speed if exausted_timer.is_stopped() else exausted_speed
 			movement_state = MovementState.WALKING
+			normal_footsteps.play_random()
 		
 		direction_vector = _translate_input_to_camera(input_vector)
 		current_speed = lerp(current_speed, target_speed, acceleration * delta)
 		var movement_speed = direction_vector * current_speed
 		velocity = velocity.lerp(movement_speed, friction * delta)
+
 	else:
 		
 		movement_state = MovementState.IDLE
 		velocity = velocity.lerp(Vector3.ZERO, friction * delta)
+		
+	if _is_stamina_recovering and current_stamina < max_stamina:
+		current_stamina = clampf(current_stamina + stamina_loss_speed * delta, 0 , max_stamina)
 		
 	move_and_slide()
 
@@ -153,4 +175,8 @@ func get_camera_origin() -> Vector3:
 	return camera.global_transform.origin
 
 func get_spawners_in_area() -> Array:
-	return spawner.get_overlapping_areas()
+	return []
+
+func _on_exausted_timer_timeout() -> void:
+	breathing_sound.stop_with_fade_out()
+	exausted_timer.stop()

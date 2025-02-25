@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d1tsuuoctjlee"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_2khi4"]
-[ext_resource type="PackedScene" uid="uid://ci7qbj410ksj7" path="res://Forest/ForestLevel.tscn" id="2_5xwn5"]
+[ext_resource type="PackedScene" uid="uid://dqqjhh3r8suqq" path="res://Forest/ForestLevel.tscn" id="2_5xwn5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v4osb"]
 

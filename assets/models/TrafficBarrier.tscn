@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bshl1qgt0cwwh"]
+
+[ext_resource type="PackedScene" uid="uid://cyht1wnl8ne6r" path="res://assets/models/Traffic Barrier.glb" id="1_5byuu"]
+
+[node name="TrafficBarrier" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_5byuu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.059286, 0, -0.117946)

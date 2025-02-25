@@ -8,7 +8,7 @@ const GROUP_NAME : String = "Slender"
 enum EnemyState {
 	RunningAfter,
 	Intimidated,
-	Wandering
+	WalkingTowards
 }
 
 @export_range(0.05, 1.0, 0.01) var update_pathfinding_wait_time := 0.2
@@ -17,13 +17,15 @@ enum EnemyState {
 
 @export var current_state : EnemyState : set = _set_state
 @export var running_speed := 15
-@export var walking_speed := 1
+@export var walking_speed := 4
+@export var intimidated_speed := 2
 
 @onready var nav : NavigationAgent3D = $NavigationAgent3D
 @onready var update_pursuit_timer : Timer = $UpdatePursuitTimer
 @onready var stalker_patience : Timer = $StalkerPatienceTimer
 @onready var camera : PerceivingCamera3D = $Camera3D
-@onready var footstep_detector: Area3D = $FootstepDetector
+@onready var sprite : Sprite3D = $Sprite3D
+@onready var death_timer : Timer = $DeathTimer
 
 var enemy_ready := false
 
@@ -38,6 +40,9 @@ func _ready() -> void:
 
 func _set_state(state: int) -> void:
 	current_state = state
+	
+	# Change face
+	
 	state_changed.emit(current_state)
 
 func _set_current_target(target: Vector3) -> void:
@@ -54,8 +59,8 @@ func enemy_setup() -> void:
 		
 	curr_player = get_tree().get_current_scene().get_random_player()
 	
-	current_state = EnemyState.Wandering
-	current_target = get_new_wander_path()
+	current_state = EnemyState.WalkingTowards
+	current_target = curr_player.global_position
 		
 	enemy_ready = true
 	
@@ -70,26 +75,20 @@ func _physics_process(_delta: float) -> void:
 			run_after_player()
 		EnemyState.Intimidated:
 			intimitaded()
-		EnemyState.Wandering:
+		EnemyState.WalkingTowards:
 			wandering_behavior()
 
-func get_new_wander_path() -> Vector3:
-	var papers : Array[Node] = get_tree().get_nodes_in_group(Paper.GROUP_NAME)
-	return papers.pick_random().global_position
-
 func wandering_behavior() -> void:
+	
+	if nav.is_navigation_finished():
+		current_target = curr_player.global_position
 	
 	if curr_player and camera.is_looking_at(curr_player.global_position):
 		stalker_patience.start()
 		current_state = EnemyState.Intimidated
 		return
 	
-	if footstep_detector.get_overlapping_areas().size() != 0:
-		target_direction = (curr_player.global_position - global_transform.origin).normalized()
-		current_state = EnemyState.Intimidated
-		return
-	
-	move_with_pathfinding()
+	move_with_pathfinding(walking_speed)
 		
 func run_after_player() -> void:
 	if nav.is_navigation_finished():
@@ -115,7 +114,6 @@ func move_with_pathfinding(speed: float = walking_speed) -> void:
 	velocity = new_velocity
 	move_and_slide()
 
-
 func intimitaded() -> void:
 	
 	target_direction = (curr_player.global_position - global_transform.origin).normalized()
@@ -127,14 +125,12 @@ func intimitaded() -> void:
 
 	elif stalker_patience.is_stopped() and not camera.is_looking_at(curr_player.global_position):
 		
-		current_state = EnemyState.Wandering
+		current_state = EnemyState.WalkingTowards
+	
+	move_with_pathfinding(intimidated_speed)
 
 func _on_update_pursuit_timer_timeout() -> void:
-
-	if current_state == EnemyState.Wandering and nav.is_navigation_finished():
-		current_target = get_new_wander_path()
-	if current_state == EnemyState.RunningAfter:
-		current_target = curr_player.global_position
+	current_target = curr_player.global_position
 				
 
 func _on_player_collision(_body: Node3D) -> void:
@@ -151,3 +147,6 @@ func get_patience_state() -> float:
 
 func _on_stalker_patience_timer_timeout() -> void:
 	stalker_patience.stop()
+	
+func _on_death_timer_timeout() -> void:
+	queue_free()

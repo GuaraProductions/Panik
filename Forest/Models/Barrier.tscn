@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm6hb1cpy404f"]
+
+[ext_resource type="PackedScene" uid="uid://c5fuliy5mpavy" path="res://assets/models/Barrier Single.glb" id="1_kcusp"]
+
+[node name="Barrier" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_kcusp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00834084, -1.19209e-07, -0.0372946)

@@ -1,15 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://borreuqbvcvao"]
+[gd_scene load_steps=18 format=3 uid="uid://borreuqbvcvao"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_trg2c"]
 [ext_resource type="Resource" uid="uid://ixfgne8nn3j6" path="res://Entities/Player/PlayerControl.tres" id="2_10jux"]
 [ext_resource type="Script" path="res://Entities/PerceivingCamera.gd" id="3_c2545"]
 [ext_resource type="Script" path="res://Sounds/RandomAudioPlayer.gd" id="3_wtovw"]
-[ext_resource type="AudioStream" uid="uid://nn0hjfvhftnv" path="res://assets/sounds/Footsteps/grass-footstep1.wav" id="4_dymru"]
-[ext_resource type="AudioStream" uid="uid://cfwnpjdhmff51" path="res://assets/sounds/Footsteps/grass-footstep2.wav" id="5_vbha6"]
-[ext_resource type="AudioStream" uid="uid://dfpylttxrny14" path="res://assets/sounds/Footsteps/grass-footstep3.wav" id="6_tb2qf"]
+[ext_resource type="AudioStream" uid="uid://nn0hjfvhftnv" path="res://assets/sounds/Footsteps/Walking/grass-footstep1.wav" id="4_dymru"]
+[ext_resource type="AudioStream" uid="uid://cfwnpjdhmff51" path="res://assets/sounds/Footsteps/Walking/grass-footstep2.wav" id="5_vbha6"]
+[ext_resource type="AudioStream" uid="uid://dfpylttxrny14" path="res://assets/sounds/Footsteps/Walking/grass-footstep3.wav" id="6_tb2qf"]
 [ext_resource type="AudioStream" uid="uid://c3w66t1pgty51" path="res://assets/sounds/Objects/flashlight.wav" id="7_5mcfn"]
 [ext_resource type="Script" path="res://Sounds/AudioPlayer3D.gd" id="7_fouev"]
+[ext_resource type="AudioStream" uid="uid://j0j7m14tpbh3" path="res://assets/sounds/Footsteps/Running/grass-footstep1.wav" id="9_ehrxy"]
+[ext_resource type="AudioStream" uid="uid://7l2mq735csbq" path="res://assets/sounds/Footsteps/Running/grass-footstep2.wav" id="10_6dp2t"]
 [ext_resource type="PackedScene" uid="uid://cmaw35gsgldyx" path="res://Entities/Player/Flashlight.tscn" id="10_uekut"]
+[ext_resource type="AudioStream" uid="uid://dopofdpbt7ema" path="res://assets/sounds/Footsteps/Running/grass-footstep3.wav" id="11_ogkbc"]
+[ext_resource type="AudioStream" uid="uid://b6gtbeecg5sp8" path="res://assets/sounds/Breathing/breathing.wav" id="14_1ighu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_odoty"]
 
@@ -20,12 +24,6 @@ radius = 0.4
 [sub_resource type="BoxShape3D" id="BoxShape3D_2o7pc"]
 size = Vector3(0.813049, 2.00677, 0.800445)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bvvog"]
-size = Vector3(32.1489, 2.11465, 35.0705)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_d5med"]
-size = Vector3(25.3553, 0.143982, 23.6035)
-
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 9
 floor_max_angle = 1.00531
@@ -35,6 +33,7 @@ player_control = ExtResource("2_10jux")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0364256)
+visible = false
 mesh = SubResource("CapsuleMesh_4ewux")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -50,24 +49,22 @@ script = ExtResource("3_c2545")
 [node name="Flashlight" parent="Camera" instance=ExtResource("10_uekut")]
 transform = Transform3D(-0.985544, 0, 0.169418, 0, 1, 0, -0.169418, 0, -0.985544, 0.435, -1.1, -0.75)
 
-[node name="RayCast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.598552, -0.487998)
+[node name="RayCast" type="RayCast3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0488514, -0.02181)
 target_position = Vector3(0, -2, 0)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
+debug_shape_thickness = 5
 
-[node name="SpawnerRanger" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="Collision" type="CollisionShape3D" parent="SpawnerRanger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0732293, -0.409049, 0.103737)
-shape = SubResource("BoxShape3D_bvvog")
-
-[node name="RandomAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+[node name="NormalFootsteps" type="AudioStreamPlayer3D" parent="."]
 script = ExtResource("3_wtovw")
 audio_streams = Array[AudioStream]([ExtResource("4_dymru"), ExtResource("5_vbha6"), ExtResource("6_tb2qf")])
+randomize_pitch = true
+
+[node name="FastFootsteps" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("3_wtovw")
+audio_streams = Array[AudioStream]([ExtResource("9_ehrxy"), ExtResource("10_6dp2t"), ExtResource("11_ogkbc")])
 randomize_pitch = true
 
 [node name="FlashlightSounds" type="AudioStreamPlayer3D" parent="."]
@@ -76,11 +73,12 @@ volume_db = 4.295
 script = ExtResource("7_fouev")
 randomize_pitch = true
 
-[node name="FootstepActivator" type="Area3D" parent="."]
-collision_layer = 128
-collision_mask = 0
-monitoring = false
+[node name="BreathingSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("14_1ighu")
+volume_db = 19.533
+script = ExtResource("7_fouev")
 
-[node name="Collision" type="CollisionShape3D" parent="FootstepActivator"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.353804, -0.428009, -0.184542)
-shape = SubResource("BoxShape3D_d5med")
+[node name="ExaustedTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="ExaustedTimer" to="." method="_on_exausted_timer_timeout"]

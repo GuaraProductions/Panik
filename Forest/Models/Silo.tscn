@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb0fawypnuxd8"]
+
+[ext_resource type="PackedScene" uid="uid://6wc8hfqqtxfx" path="res://assets/models/Silo.glb" id="1_8i6d7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cnllp"]
+radius = 1.78677
+height = 11.0687
+
+[node name="Silo" type="Node3D"]
+
+[node name="Silo" parent="." instance=ExtResource("1_8i6d7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0987136, 0, 0.192719)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Silo"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Silo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.60595, 0)
+shape = SubResource("CapsuleShape3D_cnllp")
