@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -86,5 +86,6 @@ ui_screenshot={
 [rendering]
 
 renderer/rendering_method="mobile"
+scaling_3d/scale=0.5
 occlusion_culling/occlusion_rays_per_thread=1024
 occlusion_culling/use_occlusion_culling=true

@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://6gbup5l2p1fc"]
+
+[ext_resource type="Shader" path="res://Shaders/Jumpscare2.gdshader" id="1_6i2bg"]
+[ext_resource type="Texture2D" uid="uid://bfcm84w05ynrl" path="res://assets/textures/Jumpscare/slice_0_4.png" id="2_uvyq6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqx2o"]
+shader = ExtResource("1_6i2bg")
+shader_parameter/chaos = 20.931
+shader_parameter/radius = 0.826
+shader_parameter/attenuation = 4.474
+
+[node name="Jumpscare2" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="."]
+position = Vector2(642, 355)
+scale = Vector2(6.41, 3.59)
+copy_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_uvyq6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+position = Vector2(642, 355)
+scale = Vector2(6.41, 3.59)
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_hqx2o")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

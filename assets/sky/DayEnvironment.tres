@@ -1,0 +1,16 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://clye1dmmldwum"]
+
+[ext_resource type="Material" uid="uid://dykhqminvsrtu" path="res://assets/sky/Day.tres" id="1_tusa7"]
+
+[sub_resource type="Sky" id="Sky_yktpb"]
+sky_material = ExtResource("1_tusa7")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_yktpb")
+ambient_light_sky_contribution = 0.16
+ambient_light_energy = 1.35
+fog_enabled = true
+fog_light_color = Color(0.0784793, 0.0894678, 0.106743, 1)
+fog_light_energy = 0.54
+fog_sky_affect = 0.515

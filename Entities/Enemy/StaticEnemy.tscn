@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://bakvwscrau6g1"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/StaticEnemy.gd" id="1_7knng"]
+[ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="3_sbrwb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
+albedo_color = Color(1, 0.345098, 0.305882, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6ggev"]
+material = SubResource("StandardMaterial3D_7ho35")
+radius = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_61oeu"]
+size = Vector3(0.570343, 1.91211, 0.472168)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6g78y"]
+radius = 0.05
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tlgxm"]
+size = Vector3(12.6196, 2.09551, 1.32169)
+
+[node name="StaticEnemy" type="CharacterBody3D"]
+script = ExtResource("1_7knng")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_6ggev")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00297546, 0.0273438, -0.0466309)
+shape = SubResource("BoxShape3D_61oeu")
+
+[node name="Nose" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0171208, -0.999853, 0, 0.999853, 0.0171208, 0.00229216, 0.676226, 0.598399)
+visible = false
+mesh = SubResource("CapsuleMesh_6g78y")
+
+[node name="PlayerCollision" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="Collision" type="CollisionShape3D" parent="PlayerCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060552, 0.441478, 0.126611)
+shape = SubResource("BoxShape3D_tlgxm")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0770949, 0.234085, 0.244031)
+pixel_size = 0.002
+texture = ExtResource("3_sbrwb")
+hframes = 5
+vframes = 5
+frame = 14
+
+[connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]

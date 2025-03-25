@@ -1,0 +1,7 @@
+[gd_resource type="PanoramaSkyMaterial" load_steps=2 format=3 uid="uid://dykhqminvsrtu"]
+
+[ext_resource type="Texture2D" uid="uid://dee5prq6m6pn" path="res://assets/sky/day.hdr" id="1_it5tc"]
+
+[resource]
+panorama = ExtResource("1_it5tc")
+energy_multiplier = 1.5

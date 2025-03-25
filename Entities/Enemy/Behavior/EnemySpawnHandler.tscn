@@ -6,7 +6,14 @@
 script = ExtResource("1_cv7oc")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
 autostart = true
 
+[node name="DecoyTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="FilterSpawnerTimer" type="Timer" parent="."]
+wait_time = 15.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DecoyTimer" to="." method="_on_decoy_timer_timeout"]
+[connection signal="timeout" from="FilterSpawnerTimer" to="." method="_on_filter_spawner_timer_timeout"]

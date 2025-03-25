@@ -8,7 +8,8 @@ const GROUP_NAME : String = "Slender"
 enum EnemyState {
 	RunningAfter,
 	Intimidated,
-	WalkingTowards
+	WalkingTowards,
+	Transforming
 }
 
 @export_range(0.05, 1.0, 0.01) var update_pathfinding_wait_time := 0.2
@@ -26,6 +27,7 @@ enum EnemyState {
 @onready var camera : PerceivingCamera3D = $Camera3D
 @onready var sprite : Sprite3D = $Sprite3D
 @onready var death_timer : Timer = $DeathTimer
+@onready var animations : AnimationPlayer = $AnimationPlayer
 
 var enemy_ready := false
 
@@ -39,9 +41,21 @@ func _ready() -> void:
 	enemy_setup.call_deferred()
 
 func _set_state(state: int) -> void:
+	print("mudou de estado" , EnemyState.keys()[state])
 	current_state = state
 	
-	# Change face
+	match current_state:
+		EnemyState.WalkingTowards:
+			animations.play("Passive")
+		EnemyState.Intimidated:
+			animations.play("Intimidated")
+		EnemyState.Transforming:
+			animations.play("Transforming")
+			
+		EnemyState.RunningAfter:
+			#print("vai la meu fio")
+			animations.stop()
+			animations.play("Pursuing")
 	
 	state_changed.emit(current_state)
 
@@ -83,7 +97,7 @@ func wandering_behavior() -> void:
 	if nav.is_navigation_finished():
 		current_target = curr_player.global_position
 	
-	if curr_player and camera.is_looking_at(curr_player.global_position):
+	if curr_player and curr_player.is_looking_at_entity(self):
 		stalker_patience.start()
 		current_state = EnemyState.Intimidated
 		return
@@ -118,12 +132,12 @@ func intimitaded() -> void:
 	
 	target_direction = (curr_player.global_position - global_transform.origin).normalized()
 	
-	if stalker_patience.is_stopped() and camera.is_looking_at(curr_player.global_position):
+	if stalker_patience.is_stopped() and curr_player.is_looking_at_entity(self):
 			
-		current_state = EnemyState.RunningAfter
+		current_state = EnemyState.Transforming
 		current_target = curr_player.global_position
 
-	elif stalker_patience.is_stopped() and not camera.is_looking_at(curr_player.global_position):
+	elif stalker_patience.is_stopped() and not curr_player.is_looking_at_entity(self):
 		
 		current_state = EnemyState.WalkingTowards
 	
@@ -150,3 +164,13 @@ func _on_stalker_patience_timer_timeout() -> void:
 	
 func _on_death_timer_timeout() -> void:
 	queue_free()
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Transforming":
+		current_state = EnemyState.RunningAfter
+
+
+func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
+	print("antiga: ", old_name)
+	print("nova: ", new_name)

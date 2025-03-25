@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cm6hb1cpy404f"]
+[gd_scene load_steps=3 format=3 uid="uid://cm6hb1cpy404f"]
 
 [ext_resource type="PackedScene" uid="uid://c5fuliy5mpavy" path="res://assets/models/Barrier Single.glb" id="1_kcusp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yufyg"]
+size = Vector3(5.62619, 1.89215, 1.96732)
 
 [node name="Barrier" type="Node3D"]
 
 [node name="Root Scene" parent="." instance=ExtResource("1_kcusp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00834084, -1.19209e-07, -0.0372946)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0312958, 0.934906, -0.041214)
+shape = SubResource("BoxShape3D_yufyg")

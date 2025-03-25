@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ckeowc6ii8w7p"]
+
+[ext_resource type="Shader" path="res://Shaders/ChaosDistortion.gdshader" id="1_hw63p"]
+
+[resource]
+shader = ExtResource("1_hw63p")
+shader_parameter/chaos = 16.461
+shader_parameter/radius = 0.657
+shader_parameter/attenuation = 2.854

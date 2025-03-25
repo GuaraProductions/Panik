@@ -1,57 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1qdnkk1kxsyh"]
+[gd_scene load_steps=13 format=3 uid="uid://b1qdnkk1kxsyh"]
 
-[ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="1_riyox"]
+[ext_resource type="Script" path="res://UI/Jumpscare/jumpscare.gd" id="1_cwnf2"]
+[ext_resource type="Texture2D" uid="uid://cjv08m7bnlgx7" path="res://assets/textures/Jumpscare/slice_0_0.png" id="2_usyhh"]
+[ext_resource type="Texture2D" uid="uid://bfw1mwj1shat2" path="res://assets/textures/Jumpscare/slice_0_1.png" id="3_eess0"]
+[ext_resource type="Texture2D" uid="uid://dvjluim1lit6x" path="res://assets/textures/Jumpscare/slice_0_2.png" id="4_ju5td"]
+[ext_resource type="Texture2D" uid="uid://dds2i24x7btnk" path="res://assets/textures/Jumpscare/slice_1_0.png" id="5_4u3sj"]
+[ext_resource type="Texture2D" uid="uid://b6kphj7lakggr" path="res://assets/textures/Jumpscare/slice_1_1.png" id="6_2yx4s"]
+[ext_resource type="Texture2D" uid="uid://b4sv0f7a4g4fn" path="res://assets/textures/Jumpscare/slice_1_2.png" id="7_thuuv"]
+[ext_resource type="Texture2D" uid="uid://begkkir1pkrkw" path="res://assets/textures/Jumpscare/slice_1_3.png" id="8_604jb"]
+[ext_resource type="Texture2D" uid="uid://prflm4f36ht8" path="res://assets/textures/Jumpscare/slice_1_4.png" id="9_du3uu"]
 
 [sub_resource type="Animation" id="Animation_8xs60"]
 resource_name = "Jumpscare"
-length = 1.1
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("TextureRect:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.3, 0.5, 0.7, 0.9, 1.13333, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [18, 19, 20, 21, 22, 23]
+"values": [ExtResource("2_usyhh"), ExtResource("3_eess0"), ExtResource("4_ju5td"), ExtResource("5_4u3sj"), ExtResource("6_2yx4s"), ExtResource("7_thuuv"), ExtResource("8_604jb"), ExtResource("9_du3uu")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/path = NodePath("TextureRect:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.666667, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(2, 2), Vector2(6, 6)]
+"times": PackedFloat32Array(0, 1.66667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/path = NodePath(".:color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.366667),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(316, 160), Vector2(312, 151), Vector2(321, -21)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, true, false]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_i5c00"]
@@ -59,50 +55,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("TextureRect:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [18]
+"values": [ExtResource("2_usyhh")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/path = NodePath("TextureRect:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/path = NodePath(".:color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(316, 160)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u5wpa"]
@@ -111,23 +95,32 @@ _data = {
 "RESET": SubResource("Animation_i5c00")
 }
 
-[node name="Control" type="ColorRect"]
+[node name="Jumpscare" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 color = Color(0, 0, 0, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(316, 160)
-texture = ExtResource("1_riyox")
-hframes = 5
-vframes = 5
-frame = 18
+script = ExtResource("1_cwnf2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_u5wpa")
 }
 autoplay = "Jumpscare"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(616, 708)
+layout_mode = 2
+offset_left = 332.0
+offset_top = 6.0
+offset_right = 948.0
+offset_bottom = 714.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_usyhh")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://cd7rm4fbfq303"]
+
+[ext_resource type="Script" path="res://Entities/Decoy/Jester.gd" id="1_up88h"]
+[ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="3_kg864"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
+albedo_color = Color(1, 0.345098, 0.305882, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6ggev"]
+material = SubResource("StandardMaterial3D_7ho35")
+radius = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_61oeu"]
+size = Vector3(0.570343, 1.91211, 0.472168)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6g78y"]
+radius = 0.05
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tlgxm"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="Animation" id="Animation_l06od"]
+resource_name = "Pursuing"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667, 0.266667, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 19]
+}
+
+[sub_resource type="Animation" id="Animation_saqa0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:pixel_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.002]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2loox"]
+_data = {
+"Pursuing": SubResource("Animation_l06od"),
+"RESET": SubResource("Animation_saqa0")
+}
+
+[node name="Jester" type="CharacterBody3D"]
+script = ExtResource("1_up88h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_6ggev")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00297546, 0.0273438, -0.0466309)
+shape = SubResource("BoxShape3D_61oeu")
+
+[node name="Nose" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0171208, -0.999853, 0, 0.999853, 0.0171208, 0.00229216, 0.676226, 0.598399)
+visible = false
+mesh = SubResource("CapsuleMesh_6g78y")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="UpdatePursuitTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="PlayerCollision" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="Collision" type="CollisionShape3D" parent="PlayerCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00612602, 0.441478, 0.00124818)
+shape = SubResource("BoxShape3D_tlgxm")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0770949, 1.0786, 0.244031)
+pixel_size = 0.002
+texture = ExtResource("3_kg864")
+hframes = 5
+vframes = 5
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 35.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2loox")
+}
+autoplay = "Pursuing"
+
+[connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
+[connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

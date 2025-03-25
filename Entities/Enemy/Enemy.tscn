@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cd7rm4fbfq303"]
+[gd_scene load_steps=16 format=3 uid="uid://ta0eqj8f1u6t"]
 
-[ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_s6ptl"]
+[ext_resource type="Script" path="res://Entities/Enemy/StaticEnemy.gd" id="1_msoq6"]
 [ext_resource type="Script" path="res://Entities/PerceivingCamera.gd" id="2_rp2mf"]
 [ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="3_74pd8"]
 
@@ -24,8 +24,146 @@ size = Vector3(1.72482, 2.09551, 1.48547)
 [sub_resource type="BoxShape3D" id="BoxShape3D_iqarr"]
 size = Vector3(0.78656, 1.85303, 1)
 
+[sub_resource type="Animation" id="Animation_xpfq8"]
+resource_name = "Intimidated"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.3, 0.366667, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 6, 8]
+}
+
+[sub_resource type="Animation" id="Animation_qywlv"]
+resource_name = "Passive"
+length = 2.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.133333, 0.166667, 0.2, 0.266667, 0.3, 0.333333, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_l06od"]
+resource_name = "Pursuing"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667, 0.266667, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 19]
+}
+
+[sub_resource type="Animation" id="Animation_saqa0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:pixel_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.002]
+}
+
+[sub_resource type="Animation" id="Animation_feu7u"]
+resource_name = "Transforming"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.233333, 0.333333, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0.00392157, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:pixel_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.002, 0.005]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2loox"]
+_data = {
+"Intimidated": SubResource("Animation_xpfq8"),
+"Passive": SubResource("Animation_qywlv"),
+"Pursuing": SubResource("Animation_l06od"),
+"RESET": SubResource("Animation_saqa0"),
+"Transforming": SubResource("Animation_feu7u")
+}
+
 [node name="Enemy" type="CharacterBody3D"]
-script = ExtResource("1_s6ptl")
+script = ExtResource("1_msoq6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -82,7 +220,14 @@ vframes = 5
 wait_time = 35.0
 autostart = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2loox")
+}
+
 [connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
 [connection signal="timeout" from="StalkerPatienceTimer" to="." method="_on_stalker_patience_timer_timeout"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

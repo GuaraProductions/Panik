@@ -57,11 +57,16 @@ var movement_state : MovementState = MovementState.IDLE : set = _set_walking_mod
 var _is_stamina_recovering : bool = false
 var current_stamina : float = max_stamina
 
+var flashlight_disabled : bool = false
+
 
 func _ready() -> void:
-	enemy_in_scene = get_tree().current_scene.get_random_enemy()
 	add_to_group(GROUP_NAME)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func disable_flashlight() -> void:
+	flashlight_disabled = true
+	flashlight.visible = false
 
 func _set_walking_mode(state: int) -> void:
 	
@@ -94,18 +99,18 @@ func _input(event: InputEvent) -> void:
 		camera.rotate_x(rotation_x)
 		camera.rotation.x = clamp(camera.rotation.x, -1.2, 1.2)
 		
-	if event.is_action_pressed(player_control.flashlight):
+	if event.is_action_pressed(player_control.flashlight) and not flashlight_disabled:
 		flashlight_audio_player.play()
 		flashlight.toggle_light(movement_state == MovementState.RUNNING)
 		
 func _physics_process(delta: float) -> void:
 	
-	if looking_at_page and Input.get_action_strength(player_control.interact):
-		page_grabbed.emit(raycast.get_collider())
-		
 	looking_at_page = raycast.get_collider() != null
 	
-	enemy_visible = camera.is_looking_at(enemy_in_scene.global_position)
+	if looking_at_page and Input.get_action_strength(player_control.interact):
+		page_grabbed.emit(raycast.get_collider())
+	
+	#enemy_visible = camera.is_looking_at(enemy_in_scene.global_position)
 	
 	# Apply gravity
 	if not is_on_floor():
@@ -167,6 +172,9 @@ func _translate_input_to_camera(input: Vector2) -> Vector3:
 	direction = direction.normalized()
 	
 	return direction
+
+func is_looking_at_entity(node: Node3D) -> bool:
+	return camera.is_looking_at(node.global_position)
 
 func get_direction() -> Vector3:
 	return -camera.global_transform.basis.z.normalized()

@@ -6,6 +6,7 @@ class_name HUD
 @onready var hint_page : Label = $Control/HintPage
 @onready var page_counter : Label = $Control/PageCounter
 @onready var enemy_debug : Label = $Control/EnemyDebug
+@onready var black_screen : ColorRect = $BlackScreen
 
 @export var player_controls : PlayerControl
 
@@ -13,6 +14,7 @@ var enemy : CharacterBody3D
 
 func _ready() -> void:
 	
+	black_screen.visible = false
 	enemy = get_tree().current_scene.get_random_enemy()
 	
 	var action_events = InputMap.action_get_events(player_controls.interact)[0]
@@ -20,13 +22,17 @@ func _ready() -> void:
 	var keystring = OS.get_keycode_string(keycode)
 	hint_page.text = "Pressione \"%s\" para pegar a página" % keystring
 
+func activate_black_screen() -> void:
+	black_screen.visible = true
+	
+func deactivate_black_screen() -> void:
+	black_screen.visible = false
+
 func _process(_delta: float) -> void:
 	hint_page.visible = player.looking_at_page
 
 func enemy_changed_state(state: int) -> void:
-	
-	if state == Enemy.EnemyState.Wandering:
-		return
+	pass
 
 func show_page_counter(paper_count: int, num_all_papers: int) -> void:
 	page_counter.text = "%d/%d" % [paper_count, num_all_papers]

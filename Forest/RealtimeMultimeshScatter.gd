@@ -14,16 +14,15 @@ func _ready() -> void:
 	
 	multimesh_instance = get_node_or_null(MULTIMESH_NODE_NAME)
 	
-	if not multimesh_instance:
-		return
-		
-	remove_child(multimesh_instance)
+	if multimesh_instance:
+		remove_child(multimesh_instance)
 	
 	if Engine.is_editor_hint():
 		if show_debug_prints: print("remove_scene_instantiation_from_nodes")
 		remove_scene_instantiation_from_nodes()
 	
 	if render_trees_in_editor or not Engine.is_editor_hint():
+		if show_debug_prints: print("renderizar as arvores!")
 		if show_debug_prints: print("calling _setup_multimesh")
 		_setup_multimesh()
 	

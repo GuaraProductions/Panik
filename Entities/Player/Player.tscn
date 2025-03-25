@@ -25,7 +25,7 @@ radius = 0.4
 size = Vector3(0.813049, 2.00677, 0.800445)
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 9
+collision_layer = 25
 floor_max_angle = 1.00531
 floor_snap_length = 0.2
 script = ExtResource("1_trg2c")
