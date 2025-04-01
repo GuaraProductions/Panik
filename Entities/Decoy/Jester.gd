@@ -2,6 +2,7 @@ class_name Jester extends CharacterBody3D
 
 signal player_collided()
 signal trigger_jumpscare()
+signal trigger_fake()
 
 const GROUP_NAME : String = "Jester"
 
@@ -31,6 +32,8 @@ func _ready() -> void:
 func collided_with_player() -> void:
 	if not curr_player.is_looking_at_entity(self):
 		trigger_jumpscare.emit()
+	else:
+		trigger_fake.emit()
 	queue_free()
 
 func _set_current_target(target: Vector3) -> void:
@@ -52,7 +55,7 @@ func enemy_setup() -> void:
 	enemy_ready = true
 	
 func _physics_process(_delta: float) -> void:
-	
+	$SFXAudioPlayer3D.play()
 	if target_direction.length() > 0.001:
 		var target_rotation_y = atan2(target_direction.x, target_direction.z)
 		rotation.y = lerp_angle(rotation.y, target_rotation_y, 0.1) 
@@ -68,6 +71,8 @@ func run_after_player() -> void:
 func move_with_pathfinding(speed: float = running_speed) -> void:
 	var cur_agent_position: Vector3 = global_position
 	var next_path_position: Vector3 = nav.get_next_path_position()
+
+
 
 	# Calculate the velocity towards the next position
 	var new_velocity: Vector3 = next_path_position - cur_agent_position

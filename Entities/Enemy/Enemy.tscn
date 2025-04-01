@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://ta0eqj8f1u6t"]
 
-[ext_resource type="Script" path="res://Entities/Enemy/StaticEnemy.gd" id="1_msoq6"]
+[ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_6lfre"]
 [ext_resource type="Script" path="res://Entities/PerceivingCamera.gd" id="2_rp2mf"]
 [ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="3_74pd8"]
 
@@ -163,7 +163,7 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody3D"]
-script = ExtResource("1_msoq6")
+script = ExtResource("1_6lfre")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false

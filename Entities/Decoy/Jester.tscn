@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cd7rm4fbfq303"]
+[gd_scene load_steps=13 format=3 uid="uid://cd7rm4fbfq303"]
 
 [ext_resource type="Script" path="res://Entities/Decoy/Jester.gd" id="1_up88h"]
 [ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="3_kg864"]
+[ext_resource type="AudioStream" uid="uid://dlmtaf8ln5oc1" path="res://assets/sounds/Monster/approaching2.ogg" id="3_spox0"]
+[ext_resource type="Script" path="res://Sounds/AudioPlayer3D.gd" id="4_j6bgv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
 albedo_color = Color(1, 0.345098, 0.305882, 1)
@@ -128,6 +130,14 @@ libraries = {
 "": SubResource("AnimationLibrary_2loox")
 }
 autoplay = "Pursuing"
+
+[node name="SFXAudioPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_spox0")
+volume_db = 5.89
+autoplay = true
+doppler_tracking = 1
+parameters/looping = true
+script = ExtResource("4_j6bgv")
 
 [connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]

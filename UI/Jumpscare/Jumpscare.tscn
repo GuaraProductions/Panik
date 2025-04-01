@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1qdnkk1kxsyh"]
+[gd_scene load_steps=14 format=3 uid="uid://b1qdnkk1kxsyh"]
 
 [ext_resource type="Script" path="res://UI/Jumpscare/jumpscare.gd" id="1_cwnf2"]
 [ext_resource type="Texture2D" uid="uid://cjv08m7bnlgx7" path="res://assets/textures/Jumpscare/slice_0_0.png" id="2_usyhh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b4sv0f7a4g4fn" path="res://assets/textures/Jumpscare/slice_1_2.png" id="7_thuuv"]
 [ext_resource type="Texture2D" uid="uid://begkkir1pkrkw" path="res://assets/textures/Jumpscare/slice_1_3.png" id="8_604jb"]
 [ext_resource type="Texture2D" uid="uid://prflm4f36ht8" path="res://assets/textures/Jumpscare/slice_1_4.png" id="9_du3uu"]
+[ext_resource type="AudioStream" uid="uid://bae6ohif0vtua" path="res://assets/sounds/Monster/Jumpscare2.ogg" id="10_bpiip"]
 
 [sub_resource type="Animation" id="Animation_8xs60"]
 resource_name = "Jumpscare"
@@ -122,5 +123,9 @@ offset_bottom = 714.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_usyhh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_bpiip")
+autoplay = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
