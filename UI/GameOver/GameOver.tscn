@@ -15,7 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.103744, 0.103744, 0.103744, 1)
+color = Color(0, 0, 0, 1)
 script = ExtResource("1_434yv")
 
 [node name="Margin" type="MarginContainer" parent="."]
@@ -33,7 +33,7 @@ theme_override_constants/margin_bottom = 25
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_constants/separation = 35
 
 [node name="Title" type="Label" parent="Margin/VBox"]

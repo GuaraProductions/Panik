@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cyb7wauonsybv"]
+
+[ext_resource type="FontFile" uid="uid://duxdfopbmgbv4" path="res://assets/fonts/PixelifySans-VariableFont_wght.ttf" id="1_dnqm3"]
+
+[resource]
+default_font_size = 24
+Button/fonts/font = ExtResource("1_dnqm3")
+Label/fonts/font = ExtResource("1_dnqm3")
+TabContainer/fonts/font = ExtResource("1_dnqm3")
+TextEdit/fonts/font = ExtResource("1_dnqm3")

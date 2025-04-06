@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://mcvc7mig1v5e"]
+
+[ext_resource type="Shader" path="res://Shaders/Static.gdshader" id="1_daijo"]
+
+[resource]
+shader = ExtResource("1_daijo")
+shader_parameter/noise_intensity = 0.864
+shader_parameter/noise_speed = 0.001
+shader_parameter/transparency = 0.3

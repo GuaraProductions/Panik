@@ -1,0 +1,176 @@
+[gd_scene load_steps=5 format=3 uid="uid://bssu8wb6yme2r"]
+
+[ext_resource type="LabelSettings" uid="uid://b8a84g5tkeij7" path="res://UI/Credits.tres" id="1_5fdjr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k5kts"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_os46y"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_fcpu3"]
+font_size = 32
+
+[node name="Créditos" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 135
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 135
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Obrigado por jogar!"
+label_settings = SubResource("LabelSettings_k5kts")
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="Desenvolvimento" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Titulo2" type="Label" parent="VBoxContainer/GridContainer/Desenvolvimento"]
+layout_mode = 2
+text = "Desenvolvidor por:"
+label_settings = SubResource("LabelSettings_os46y")
+
+[node name="Desenvolvedores" type="Label" parent="VBoxContainer/GridContainer/Desenvolvimento"]
+layout_mode = 2
+text = "- Guará Programador"
+
+[node name="PlaytestersLabel" type="Label" parent="VBoxContainer/GridContainer/Desenvolvimento"]
+layout_mode = 2
+text = "Playtesters:"
+label_settings = SubResource("LabelSettings_fcpu3")
+
+[node name="Playtesters" type="Label" parent="VBoxContainer/GridContainer/Desenvolvimento"]
+layout_mode = 2
+text = " - \"Gordinho\"
+ - \"Luquinhas\""
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AssetsUsados" type="VBoxContainer" parent="VBoxContainer/GridContainer/ScrollContainer"]
+custom_minimum_size = Vector2(555, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+
+[node name="Titulo" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "Assets usados:
+"
+label_settings = SubResource("LabelSettings_os46y")
+
+[node name="EfeitosSonoros" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "Efeitos sonoros:"
+label_settings = SubResource("LabelSettings_fcpu3")
+
+[node name="ListaEfeitosSonoros" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "- Right Grass/Grassy Footstep 4 by Ali_6868 
+https://freesound.org/people/Ali_6868/sounds/384869/
+- Left Grass/Grassy Footstep 1 by Ali_6868 
+https://freesound.org/people/Ali_6868/sounds/384860/
+- Left Grass/Grassy Footstep 2 by Ali_6868
+https://freesound.org/people/Ali_6868/sounds/384858/
+- one a4 paper sheet grab.wav by shark510
+https://freesound.org/people/shark510/sounds/337812/
+- crickets night forest with 2 sharp close 
+cicadas back and forth.flac by kyles
+https://freesound.org/people/kyles/sounds/453862/
+- Horror Ambience.wav by Zeraora
+https://freesound.org/people/Zeraora/sounds/707375/
+- estate park Haanwijk NL 112 PM 230206_0555 by klankbeeld
+https://freesound.org/people/klankbeeld/sounds/795399/
+- interference.aif by electrosnail
+https://freesound.org/people/electrosnail/sounds/58929/
+- Small_Flashlight_Click_on_01.wav by Rudmer_Rotteveel 
+https://freesound.org/people/Rudmer_Rotteveel/sounds/457458/
+- Clicking VCR power button.mp3 by Pizzazif
+https://freesound.org/people/Pizzazif/sounds/639350/"
+label_settings = ExtResource("1_5fdjr")
+
+[node name="Texturas" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "Texturas:"
+label_settings = SubResource("LabelSettings_fcpu3")
+
+[node name="ListaTexturas" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "- Monstro feito por \"Gordinho\"
+- Tiny texture Pack 1 by Screamingbrainstudios
+https://screamingbrainstudios.itch.io/tiny-texture-pack"
+label_settings = ExtResource("1_5fdjr")
+
+[node name="Modelos" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "Modelos:"
+label_settings = SubResource("LabelSettings_fcpu3")
+
+[node name="ListaModelos" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "-  Car by Quaternius
+https://poly.pizza/m/Cz6yDaUcM9
+- Metal Fence by Quaternius
+https://poly.pizza/m/qWKhREFj7H
+- Truck tank by KolosStudios
+https://poly.pizza/m/64ayx6pW3O
+- Billboard by sirkitree
+https://poly.pizza/m/71gPkTkcnHg
+- Log Cabin by Poly by Google
+https://poly.pizza/m/f7uccD5iyz0
+- Tent by Quaternius
+https://poly.pizza/m/5Q7qIrfDxA
+- Tree by Zsky
+https://poly.pizza/m/VfZbAkek1r
+- Time Hotel 5.28 (Pad of Paper)
+https://poly.pizza/m/7-99AhSn6qj
+- Rock by Quaternius
+https://poly.pizza/m/RtLRqYjfMs
+- Swing Set by Poly by Google
+https://poly.pizza/m/e-IJdcqZH4p
+- Barrier Single by Quaternius
+https://poly.pizza/m/wCUxgt2jSP
+- Time Hotel 7.07 by S. Paul Michael
+https://poly.pizza/m/8EnRYLQkHLn
+- Silo Quaternius
+https://poly.pizza/m/5GhLrv5Ce3
+- Slide by Poly By Google
+https://poly.pizza/m/dDe3njWPbg0
+- Column by Quaternius
+https://poly.pizza/m/wLubNpOTX4
+- Bonfire by Quaternius
+https://poly.pizza/m/Azj9hJwwwG"
+label_settings = ExtResource("1_5fdjr")
+
+[node name="Musica" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "Musica:"
+label_settings = SubResource("LabelSettings_fcpu3")
+
+[node name="ListaMusicas" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+label_settings = ExtResource("1_5fdjr")
+
+[node name="VoltarAoMenu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "Voltar ao Menu"

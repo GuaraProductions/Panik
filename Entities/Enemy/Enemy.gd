@@ -34,6 +34,8 @@ var enemy_ready := false
 var current_target : Vector3 : set = _set_current_target
 var target_direction : Vector3
 
+var can_target_player: bool = false
+
 var curr_player : Player
 
 func _ready() -> void:
@@ -56,6 +58,7 @@ func _set_state(state: int) -> void:
 			#print("vai la meu fio")
 			animations.stop()
 			animations.play("Pursuing")
+			$AudioMonster.play()
 	
 	state_changed.emit(current_state)
 
@@ -80,13 +83,16 @@ func enemy_setup() -> void:
 	
 func _physics_process(_delta: float) -> void:
 	
+	if not can_target_player:
+		return
+	
 	if target_direction.length() > 0.001:
 		var target_rotation_y = atan2(target_direction.x, target_direction.z)
 		rotation.y = lerp_angle(rotation.y, target_rotation_y, 0.1) 
 
 	match current_state:
 		EnemyState.RunningAfter:
-			run_after_player()
+			move_with_pathfinding(running_speed)
 		EnemyState.Intimidated:
 			intimitaded()
 		EnemyState.WalkingTowards:
@@ -103,14 +109,12 @@ func wandering_behavior() -> void:
 		return
 	
 	move_with_pathfinding(walking_speed)
-		
-func run_after_player() -> void:
-	if nav.is_navigation_finished():
+	
+func move_with_pathfinding(speed: float = walking_speed) -> void:
+	
+	if nav.is_navigation_finished() :
 		return
 		
-	move_with_pathfinding(running_speed)
-
-func move_with_pathfinding(speed: float = walking_speed) -> void:
 	var cur_agent_position: Vector3 = global_position
 	var next_path_position: Vector3 = nav.get_next_path_position()
 
@@ -144,6 +148,8 @@ func intimitaded() -> void:
 	move_with_pathfinding(intimidated_speed)
 
 func _on_update_pursuit_timer_timeout() -> void:
+	
+	can_target_player = get_parent().is_point_in_boundary(curr_player.global_position)
 	current_target = curr_player.global_position
 				
 

@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpb6dny1yswjn"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/Orquestrador.gd" id="1_1qnkg"]
+[ext_resource type="PackedScene" uid="uid://dggfbox0l8r6s" path="res://UI/YouWin/CenaCreditos.tscn" id="1_jfgom"]
+[ext_resource type="PackedScene" uid="uid://d1tsuuoctjlee" path="res://UI/MainMenu/MainMenu.tscn" id="2_cp5dh"]
+[ext_resource type="PackedScene" uid="uid://dqqjhh3r8suqq" path="res://Forest/ForestLevel.tscn" id="2_kdac4"]
+[ext_resource type="PackedScene" uid="uid://b27px5euoo7sd" path="res://UI/Introduction/Introduction.tscn" id="4_j3umw"]
+[ext_resource type="PackedScene" uid="uid://dj6e0eqnyklx6" path="res://UI/Options/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="6_xpmev"]
+[ext_resource type="AudioStream" uid="uid://cg25h4nxn074q" path="res://assets/sounds/UI/clicking.mp3" id="7_3wvv4"]
+[ext_resource type="AudioStream" uid="uid://ymre0tcrqpyy" path="res://assets/music/PaNik-intro.mp3" id="8_dovad"]
+
+[node name="Orquestrador" type="Node"]
+script = ExtResource("1_1qnkg")
+game_scene = ExtResource("2_kdac4")
+
+[node name="CenaCreditos" parent="." instance=ExtResource("1_jfgom")]
+
+[node name="GameIntroduction" parent="." instance=ExtResource("4_j3umw")]
+
+[node name="MainMenu" parent="." instance=ExtResource("2_cp5dh")]
+
+[node name="MasterOptionsMenu" parent="." instance=ExtResource("6_xpmev")]
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_3wvv4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_dovad")
+parameters/looping = true
+
+[connection signal="go_to_menu" from="CenaCreditos" to="." method="_on_cena_creditos_go_to_menu"]
+[connection signal="intro_ended" from="GameIntroduction" to="." method="_on_game_introduction_intro_ended"]
+[connection signal="go_to_credits" from="MainMenu" to="." method="_on_main_menu_go_to_credits"]
+[connection signal="go_to_game" from="MainMenu" to="." method="_on_main_menu_go_to_game"]
+[connection signal="go_to_options" from="MainMenu" to="." method="_on_main_menu_go_to_options"]
+[connection signal="back_to_menu" from="MasterOptionsMenu" to="." method="_on_master_options_menu_back_to_menu"]

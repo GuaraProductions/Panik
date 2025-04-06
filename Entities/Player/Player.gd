@@ -110,7 +110,14 @@ func _physics_process(delta: float) -> void:
 	if looking_at_page and Input.get_action_strength(player_control.interact):
 		page_grabbed.emit(raycast.get_collider())
 	
+	var right_stick_vector = Input.get_vector("joystick_left","joystick_right","joystick_up","joystick_down")
 	#enemy_visible = camera.is_looking_at(enemy_in_scene.global_position)
+	
+	if right_stick_vector:
+		
+		var event := InputEventMouseMotion.new()
+		event.relative = right_stick_vector * 8
+		Input.parse_input_event(event)  # Simulate mouse movement
 	
 	# Apply gravity
 	if not is_on_floor():

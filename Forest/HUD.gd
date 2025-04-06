@@ -24,6 +24,7 @@ func _ready() -> void:
 
 func activate_black_screen() -> void:
 	black_screen.visible = true
+	black_screen.modulate = Color.WHITE
 	
 func deactivate_black_screen() -> void:
 	black_screen.visible = false

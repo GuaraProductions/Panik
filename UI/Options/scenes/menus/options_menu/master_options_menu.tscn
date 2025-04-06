@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://gcwqhq464jsp"]
+
+[ext_resource type="PackedScene" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu.tscn" id="1_8ddlw"]
+[ext_resource type="Script" path="res://UI/Options/scenes/menus/options_menu/master_options_menu.gd" id="2_gljsr"]
+
+[node name="MasterOptionsMenu" instance=ExtResource("1_8ddlw")]
+script = ExtResource("2_gljsr")

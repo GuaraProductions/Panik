@@ -23,6 +23,8 @@ var enemy_ready := false
 var current_target : Vector3 : set = _set_current_target
 var target_direction : Vector3
 
+var can_target_player: bool = false
+
 var curr_player : Player
 
 func _ready() -> void:
@@ -55,24 +57,24 @@ func enemy_setup() -> void:
 	enemy_ready = true
 	
 func _physics_process(_delta: float) -> void:
+	
+	if not can_target_player:
+		return
+	
 	$SFXAudioPlayer3D.play()
 	if target_direction.length() > 0.001:
 		var target_rotation_y = atan2(target_direction.x, target_direction.z)
 		rotation.y = lerp_angle(rotation.y, target_rotation_y, 0.1) 
 
-	run_after_player()
-		
-func run_after_player() -> void:
-	if nav.is_navigation_finished():
-		return
-		
 	move_with_pathfinding(running_speed)
 
 func move_with_pathfinding(speed: float = running_speed) -> void:
+	
+	if nav.is_navigation_finished():
+		return
+	
 	var cur_agent_position: Vector3 = global_position
 	var next_path_position: Vector3 = nav.get_next_path_position()
-
-
 
 	# Calculate the velocity towards the next position
 	var new_velocity: Vector3 = next_path_position - cur_agent_position
@@ -89,6 +91,8 @@ func move_with_pathfinding(speed: float = running_speed) -> void:
 	move_and_slide()
 
 func _on_update_pursuit_timer_timeout() -> void:
+	
+	can_target_player = get_parent().is_point_in_boundary(curr_player.global_position)
 	current_target = curr_player.global_position
 				
 func _on_player_collision(_body: Node3D) -> void:

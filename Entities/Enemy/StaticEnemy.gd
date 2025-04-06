@@ -12,7 +12,7 @@ var enemy_ready := false
 var curr_player : Player
 
 func _ready() -> void:
-	player_collided.connect(get_tree().get_current_scene().enemy_got_player)
+	player_collided.connect(get_tree().get_current_scene().player_got_bad_ending)
 
 func _on_player_collision(_body: Node3D) -> void:
 	player_collided.emit()
