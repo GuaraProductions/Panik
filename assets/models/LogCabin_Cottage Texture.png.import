@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cndeohw77u416"
 path.s3tc="res://.godot/imported/LogCabin_Cottage Texture.png-9b1460a49a751811627d960920b46a38.s3tc.ctex"
+path.etc2="res://.godot/imported/LogCabin_Cottage Texture.png-9b1460a49a751811627d960920b46a38.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/LogCabin_Cottage Texture.png"
-dest_files=["res://.godot/imported/LogCabin_Cottage Texture.png-9b1460a49a751811627d960920b46a38.s3tc.ctex"]
+dest_files=["res://.godot/imported/LogCabin_Cottage Texture.png-9b1460a49a751811627d960920b46a38.s3tc.ctex", "res://.godot/imported/LogCabin_Cottage Texture.png-9b1460a49a751811627d960920b46a38.etc2.ctex"]
 
 [params]
 

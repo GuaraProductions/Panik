@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://uqg8q4w6bsuk"
 path.bptc="res://.godot/imported/night-sky.hdr-1be9043c5672c7d0fdda0908f42ba344.bptc.ctex"
+path.astc="res://.godot/imported/night-sky.hdr-1be9043c5672c7d0fdda0908f42ba344.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/sky/night-sky.hdr"
-dest_files=["res://.godot/imported/night-sky.hdr-1be9043c5672c7d0fdda0908f42ba344.bptc.ctex"]
+dest_files=["res://.godot/imported/night-sky.hdr-1be9043c5672c7d0fdda0908f42ba344.bptc.ctex", "res://.godot/imported/night-sky.hdr-1be9043c5672c7d0fdda0908f42ba344.astc.ctex"]
 
 [params]
 

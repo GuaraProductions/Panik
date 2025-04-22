@@ -20,7 +20,15 @@ func _ready() -> void:
 	var action_events = InputMap.action_get_events(player_controls.interact)[0]
 	var keycode = action_events.physical_keycode
 	var keystring = OS.get_keycode_string(keycode)
-	hint_page.text = "Pressione \"%s\" para pegar a página" % keystring
+	
+	var is_on_mobile : bool = true \
+	 if OS.has_feature("android") or OS.has_feature("ios") \
+	 else false
+	
+	if is_on_mobile:
+		hint_page.text = "Toque na tela para pegar a página"
+	else:
+		hint_page.text = "Pressione \"%s\" para pegar a página" % keystring
 
 func activate_black_screen() -> void:
 	black_screen.visible = true
@@ -42,25 +50,3 @@ func show_page_counter(paper_count: int, num_all_papers: int) -> void:
 	await get_tree().create_timer(5).timeout
 	
 	page_counter.visible = false
-
-func _input(event: InputEvent) -> void:
-	
-	if event.is_action_pressed("ui_screenshot"):
-
-		var capture = get_viewport().get_texture().get_image()
-		var _time = Time.get_date_string_from_system()
-		var filename = "user://Screenshot-%s.png" % [_time]
-		
-		var file : FileAccess = FileAccess.open(filename, FileAccess.WRITE)
-		
-		if file == null:
-			printerr("Error! Nao foi possivel abrir arquivo!")
-			printerr("Motivo: ", FileAccess.get_open_error())
-			printerr("Nome arquivo: ", filename)
-			return
-		
-		var buffer = capture.save_png_to_buffer()
-		
-		file.store_buffer(buffer)
-		
-		file.close()

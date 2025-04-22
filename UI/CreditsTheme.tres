@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://duxdfopbmgbv4" path="res://assets/fonts/PixelifySans-VariableFont_wght.ttf" id="1_5nl7n"]
 
 [resource]
+default_font = ExtResource("1_5nl7n")
 default_font_size = 32
 Button/fonts/font = ExtResource("1_5nl7n")
 Label/fonts/font = ExtResource("1_5nl7n")

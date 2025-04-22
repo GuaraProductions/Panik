@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dp5qm7iodoi6e"
 path.s3tc="res://.godot/imported/The_entity-Sheet.png-74e13f41ba36b576d29f905cbf4b9159.s3tc.ctex"
+path.etc2="res://.godot/imported/The_entity-Sheet.png-74e13f41ba36b576d29f905cbf4b9159.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/Enemy/The_entity-Sheet.png"
-dest_files=["res://.godot/imported/The_entity-Sheet.png-74e13f41ba36b576d29f905cbf4b9159.s3tc.ctex"]
+dest_files=["res://.godot/imported/The_entity-Sheet.png-74e13f41ba36b576d29f905cbf4b9159.s3tc.ctex", "res://.godot/imported/The_entity-Sheet.png-74e13f41ba36b576d29f905cbf4b9159.etc2.ctex"]
 
 [params]
 

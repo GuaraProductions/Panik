@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgcd47gten7jr"
 path.s3tc="res://.godot/imported/Swing set_1231 Swing.png-56b6eb86cc930d253a659fbd446d515e.s3tc.ctex"
+path.etc2="res://.godot/imported/Swing set_1231 Swing.png-56b6eb86cc930d253a659fbd446d515e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/Swing set_1231 Swing.png"
-dest_files=["res://.godot/imported/Swing set_1231 Swing.png-56b6eb86cc930d253a659fbd446d515e.s3tc.ctex"]
+dest_files=["res://.godot/imported/Swing set_1231 Swing.png-56b6eb86cc930d253a659fbd446d515e.s3tc.ctex", "res://.godot/imported/Swing set_1231 Swing.png-56b6eb86cc930d253a659fbd446d515e.etc2.ctex"]
 
 [params]
 
