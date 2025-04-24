@@ -58,7 +58,8 @@ label_settings = SubResource("LabelSettings_fcpu3")
 [node name="Playtesters" type="Label" parent="VBoxContainer/GridContainer/Desenvolvimento"]
 layout_mode = 2
 text = " - \"Gordinho\"
- - \"Luquinhas\""
+ - \"Luquinhas\"
+- \"Bruno\""
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -167,6 +168,18 @@ label_settings = SubResource("LabelSettings_fcpu3")
 
 [node name="ListaMusicas" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
 layout_mode = 2
+text = "- Todas as músicas desse jogo foram gerados pela Inteligência Artificial \"Suno.ai\""
+label_settings = ExtResource("1_5fdjr")
+
+[node name="Plugins" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "Plugins"
+label_settings = SubResource("LabelSettings_fcpu3")
+
+[node name="ListaPlugins" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "- Virtual joystick de Marco Fazio
+- maaacks_options_menus de Marek"
 label_settings = ExtResource("1_5fdjr")
 
 [node name="VoltarAoMenu" type="Button" parent="VBoxContainer"]

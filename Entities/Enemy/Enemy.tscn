@@ -1,9 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://ta0eqj8f1u6t"]
+[gd_scene load_steps=30 format=3 uid="uid://ta0eqj8f1u6t"]
 
 [ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_6lfre"]
 [ext_resource type="Script" path="res://Entities/PerceivingCamera.gd" id="2_rp2mf"]
 [ext_resource type="Texture2D" uid="uid://dp5qm7iodoi6e" path="res://assets/textures/Enemy/The_entity-Sheet.png" id="3_74pd8"]
+[ext_resource type="Shader" path="res://Entities/Enemy/Dissipate.gdshader" id="3_kv6gg"]
 [ext_resource type="AudioStream" uid="uid://dlmtaf8ln5oc1" path="res://assets/sounds/Monster/approaching2.ogg" id="4_xs15c"]
+[ext_resource type="Texture2D" uid="uid://c44eg43mrkfex" path="res://assets/textures/Enemy/Dissipate.png" id="5_cyofp"]
+[ext_resource type="AudioStream" uid="uid://k1lhg2oalh36" path="res://assets/sounds/Monster/increase.ogg" id="5_rt46c"]
+[ext_resource type="Script" path="res://Sounds/RandomAudioPlayer.gd" id="6_8jjsw"]
+[ext_resource type="AudioStream" uid="uid://caane4s6ef451" path="res://assets/sounds/Monster/talks/1.ogg" id="7_8rp4x"]
+[ext_resource type="AudioStream" uid="uid://cq4nbpwqbkcx6" path="res://assets/sounds/Monster/talks/2.ogg" id="8_rxk7w"]
+[ext_resource type="AudioStream" uid="uid://drilmy76ayav1" path="res://assets/sounds/Monster/talks/3.ogg" id="9_fmbah"]
+[ext_resource type="AudioStream" uid="uid://nekfdnibss8d" path="res://assets/sounds/Monster/talks/4.ogg" id="10_jot5u"]
+[ext_resource type="AudioStream" uid="uid://8ivcjc66trnx" path="res://assets/sounds/Monster/talks/5.ogg" id="11_2om1x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ho35"]
 albedo_color = Color(1, 0.345098, 0.305882, 1)
@@ -24,6 +33,22 @@ size = Vector3(1.72482, 2.09551, 1.48547)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iqarr"]
 size = Vector3(0.78656, 1.85303, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rin51"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5163a"]
+noise = SubResource("FastNoiseLite_rin51")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_544sw"]
+render_priority = 0
+shader = ExtResource("3_kv6gg")
+shader_parameter/glitch_strength = 0.672
+shader_parameter/dissolve_threshold = 0.623
+shader_parameter/time_scale = 9.592
+shader_parameter/tint_color = Vector4(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(5, 5)
+shader_parameter/main_tex = ExtResource("5_cyofp")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_5163a")
 
 [sub_resource type="Animation" id="Animation_xpfq8"]
 resource_name = "Intimidated"
@@ -114,6 +139,66 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.002]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite3D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Dissipate:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Dissipate:material_override:shader_parameter/time_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [9.592]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Dissipate:material_override:shader_parameter/dissolve_threshold")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.623]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Dissipate:material_override:shader_parameter/glitch_strength")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.672]
+}
 
 [sub_resource type="Animation" id="Animation_feu7u"]
 resource_name = "Transforming"
@@ -154,13 +239,101 @@ tracks/2/keys = {
 "values": [0.002, 0.005]
 }
 
+[sub_resource type="Animation" id="Animation_qn8ga"]
+resource_name = "dissipate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dissipate:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dissipate:material_override:shader_parameter/glitch_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.672]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Dissipate:material_override:shader_parameter/dissolve_threshold")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.623]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Dissipate:material_override:shader_parameter/time_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.666, 9.592]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerCollision:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerCollision:monitorable")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2loox"]
 _data = {
 "Intimidated": SubResource("Animation_xpfq8"),
 "Passive": SubResource("Animation_qywlv"),
 "Pursuing": SubResource("Animation_l06od"),
 "RESET": SubResource("Animation_saqa0"),
-"Transforming": SubResource("Animation_feu7u")
+"Transforming": SubResource("Animation_feu7u"),
+"dissipate": SubResource("Animation_qn8ga")
 }
 
 [node name="Enemy" type="CharacterBody3D"]
@@ -196,6 +369,8 @@ wait_time = 3.0
 [node name="PlayerCollision" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 8
+monitoring = false
+monitorable = false
 
 [node name="Collision" type="CollisionShape3D" parent="PlayerCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386149, 0.441478, 0.0797411)
@@ -217,8 +392,17 @@ texture = ExtResource("3_74pd8")
 hframes = 5
 vframes = 5
 
+[node name="Dissipate" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0770949, 1.0786, 0.244031)
+visible = false
+material_override = SubResource("ShaderMaterial_544sw")
+pixel_size = 0.002
+texture = ExtResource("3_74pd8")
+hframes = 5
+vframes = 5
+
 [node name="DeathTimer" type="Timer" parent="."]
-wait_time = 35.0
+wait_time = 15.0
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -231,6 +415,16 @@ stream = ExtResource("4_xs15c")
 pitch_scale = 0.44
 doppler_tracking = 2
 parameters/looping = true
+
+[node name="TransformationAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_rt46c")
+attenuation_model = 2
+emission_angle_enabled = true
+
+[node name="RandomSFXAudioPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 4.571
+script = ExtResource("6_8jjsw")
+audio_streams = Array[AudioStream]([ExtResource("7_8rp4x"), ExtResource("8_rxk7w"), ExtResource("9_fmbah"), ExtResource("10_jot5u"), ExtResource("11_2om1x")])
 
 [connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
 [connection signal="timeout" from="StalkerPatienceTimer" to="." method="_on_stalker_patience_timer_timeout"]

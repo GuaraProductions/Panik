@@ -28,6 +28,8 @@ enum EnemyState {
 @onready var sprite : Sprite3D = $Sprite3D
 @onready var death_timer : Timer = $DeathTimer
 @onready var animations : AnimationPlayer = $AnimationPlayer
+@onready var transformation_audio : AudioStreamPlayer3D = $TransformationAudio
+@onready var talks : AudioStreamPlayer3D = $RandomSFXAudioPlayer3D
 
 var enemy_ready := false
 
@@ -52,6 +54,7 @@ func _set_state(state: int) -> void:
 		EnemyState.Intimidated:
 			animations.play("Intimidated")
 		EnemyState.Transforming:
+			transformation_audio.play()
 			animations.play("Transforming")
 			
 		EnemyState.RunningAfter:
@@ -169,12 +172,17 @@ func _on_stalker_patience_timer_timeout() -> void:
 	stalker_patience.stop()
 	
 func _on_death_timer_timeout() -> void:
-	queue_free()
-
+	print("SAYONARA")
+	set_physics_process(false)
+	talks.play_random()
+	animations.play("dissipate")
+	
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Transforming":
 		current_state = EnemyState.RunningAfter
+	if anim_name == "dissipate":
+		queue_free()
 
 
 func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:

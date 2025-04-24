@@ -14,7 +14,7 @@ func music_fade_out() -> void:
 		$AudioStreamPlayer,
 		"volume_db",
 		-80,
-		2
+		5
 	)
 	tween.play()
 
@@ -23,4 +23,4 @@ func _on_voltar_ao_menu_pressed() -> void:
 	music_fade_out()
 	
 func voltar_ao_menu() -> void:
-	get_tree().change_scene_to_file("res://UI/MainMenu/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://UI/MainMenu/Orquestrador.tscn")

@@ -158,4 +158,10 @@ func _on_you_win_trigger_body_entered(_body: Node3D) -> void:
 	music_player.stop()
 	hud.activate_black_screen()
 	await get_tree().create_timer(5).timeout
-	get_tree().change_scene_to_packed.call_deferred(you_win_scene)
+	
+	if page_counter == 0:
+		get_tree().change_scene_to_file.call_deferred("res://UI/ThirdEnding/ThirdEnding.tscn")
+	elif page_counter > 0:
+		get_tree().change_scene_to_file.call_deferred("res://UI/FourthEnding/FourthEnding.tscn")
+	else:
+		get_tree().change_scene_to_packed.call_deferred(you_win_scene)
