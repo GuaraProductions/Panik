@@ -99,3 +99,12 @@ https://poly.pizza/m/Azj9hJwwwG
 
 - Virtual joystick de Marco Fazio
 - maaacks_options_menus de Marek
+
+# Shaders
+
+- Chromatic Chaos Distortion by CasualGarageCoder
+- VHS and CRT monitor effect by pend00
+- Chromatic Chaos Distortion (Godot4) by mrussodev
+- Fog shader by Gonkee
+- Pixelate by Godot Shaders
+
