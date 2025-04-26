@@ -25,6 +25,7 @@ var num_pages : int = 0
 
 func _ready() -> void:
 	music_player.play_night_ambience()
+	#page_counter = 7
 	#player_got_all_pages()
 	
 	var paper_spawners = get_tree().get_nodes_in_group(PaperSpawner.GROUP_NAME)
@@ -161,7 +162,8 @@ func _on_you_win_trigger_body_entered(_body: Node3D) -> void:
 	
 	if page_counter == 0:
 		get_tree().change_scene_to_file.call_deferred("res://UI/ThirdEnding/ThirdEnding.tscn")
+	elif page_counter >= num_pages:
+		get_tree().change_scene_to_packed.call_deferred(you_win_scene)
 	elif page_counter > 0:
 		get_tree().change_scene_to_file.call_deferred("res://UI/FourthEnding/FourthEnding.tscn")
-	else:
-		get_tree().change_scene_to_packed.call_deferred(you_win_scene)
+		

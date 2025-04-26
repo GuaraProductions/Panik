@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="GodotSlender"
+config/name="Panik"
+config/description="Um jogo de terror criado no Godot Engine 4.3. O projeto iniciou-se como algo feito em livestream e depois teve um pequeno rework"
 run/main_scene="res://UI/MainMenu/Orquestrador.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"

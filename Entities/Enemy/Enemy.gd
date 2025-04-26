@@ -172,7 +172,7 @@ func _on_stalker_patience_timer_timeout() -> void:
 	stalker_patience.stop()
 	
 func _on_death_timer_timeout() -> void:
-	print("SAYONARA")
+
 	set_physics_process(false)
 	talks.play_random()
 	animations.play("dissipate")

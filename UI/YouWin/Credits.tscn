@@ -59,7 +59,7 @@ label_settings = SubResource("LabelSettings_fcpu3")
 layout_mode = 2
 text = " - \"Gordinho\"
  - \"Luquinhas\"
-- \"Bruno\""
+- \"MrNaru300\""
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -180,6 +180,23 @@ label_settings = SubResource("LabelSettings_fcpu3")
 layout_mode = 2
 text = "- Virtual joystick de Marco Fazio
 - maaacks_options_menus de Marek"
+label_settings = ExtResource("1_5fdjr")
+
+[node name="Shaders" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "Shaders"
+label_settings = SubResource("LabelSettings_fcpu3")
+
+[node name="ListaShaders" type="Label" parent="VBoxContainer/GridContainer/ScrollContainer/AssetsUsados"]
+layout_mode = 2
+text = "- Chromatic Chaos Distortion by CasualGarageCoder
+- VHS and CRT monitor effect by pend00
+- Chromatic Chaos Distortion (Godot4) by mrussodev
+- Fog shader by Gonkee
+- Pixelate by Godot Shaders
+
+
+"
 label_settings = ExtResource("1_5fdjr")
 
 [node name="VoltarAoMenu" type="Button" parent="VBoxContainer"]

@@ -12,17 +12,6 @@ var music_faded_out = false
 func start_intro() -> void:
 	animation_player.play("Intro")
 	
-	var sound_tween = create_tween()
-	
-	sound_tween.tween_property(
-		music_player,
-		"volume_db",
-		0,
-		10
-	)
-	
-	sound_tween.play()
-	
 	await get_tree().create_timer(1).timeout
 	
 	intro_started = true

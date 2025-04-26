@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cynk5nlikly4q"]
 
 [ext_resource type="Script" path="res://addons/maaacks_options_menus/base/scripts/capture_focus.gd" id="1_h0614"]
-[ext_resource type="PackedScene" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/option_control/slider_option_control.tscn" id="2_43way"]
+[ext_resource type="PackedScene" uid="uid://cl416gdb1fgwr" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/option_control/slider_option_control.tscn" id="2_43way"]
 
 [node name="Inputs" type="MarginContainer"]
 anchors_preset = 15
@@ -39,7 +39,7 @@ key = "MouseSensitivity"
 section = "InputSettings"
 
 [node name="OptionLabel" parent="VBoxContainer/MarginContainer/VBoxContainer/MouseSensitivityControl" index="0"]
-text = "Mouse Sensitivity :"
+text = "Sensibilidade do Mouse: "
 
 [node name="HSlider" parent="VBoxContainer/MarginContainer/VBoxContainer/MouseSensitivityControl" index="1"]
 min_value = 0.25
@@ -54,7 +54,7 @@ key = "JoypadSensitivity"
 section = "InputSettings"
 
 [node name="OptionLabel" parent="VBoxContainer/MarginContainer/VBoxContainer/JoypadSensitivityControl" index="0"]
-text = "Joypad Sensitivity :"
+text = "Sensibilidade do Controle: "
 
 [node name="HSlider" parent="VBoxContainer/MarginContainer/VBoxContainer/JoypadSensitivityControl" index="1"]
 min_value = 0.25
