@@ -384,4 +384,3 @@ func pick(p_global_position: Vector3) -> void:
 	
 	elif operation_builder and operation_builder.is_picking():
 		operation_builder.pick(p_global_position, plugin.terrain)
-

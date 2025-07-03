@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ta0eqj8f1u6t"]
+[gd_scene load_steps=28 format=3 uid="uid://ta0eqj8f1u6t"]
 
 [ext_resource type="Script" path="res://Entities/Enemy/Enemy.gd" id="1_6lfre"]
 [ext_resource type="Script" path="res://Entities/PerceivingCamera.gd" id="2_rp2mf"]
@@ -22,17 +22,11 @@ material = SubResource("StandardMaterial3D_7ho35")
 radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_61oeu"]
-size = Vector3(0.570343, 1.91211, 0.472168)
+size = Vector3(2, 2, 2)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6g78y"]
 radius = 0.05
 height = 1.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_tlgxm"]
-size = Vector3(1.72482, 2.09551, 1.48547)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_iqarr"]
-size = Vector3(0.78656, 1.85303, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rin51"]
 
@@ -301,30 +295,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.666, 9.592]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerCollision:monitoring")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerCollision:monitorable")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2loox"]
 _data = {
@@ -337,6 +307,8 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody3D"]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_6lfre")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -344,7 +316,7 @@ visible = false
 mesh = SubResource("CapsuleMesh_6ggev")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00297546, 0.0273438, -0.0466309)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_61oeu")
 
 [node name="Nose" type="MeshInstance3D" parent="."]
@@ -366,34 +338,15 @@ autostart = true
 [node name="StalkerPatienceTimer" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="PlayerCollision" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 8
-monitoring = false
-monitorable = false
-
-[node name="Collision" type="CollisionShape3D" parent="PlayerCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386149, 0.441478, 0.0797411)
-shape = SubResource("BoxShape3D_tlgxm")
-
-[node name="FootstepDetector" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 128
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FootstepDetector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0284729, 0.10376, 0)
-shape = SubResource("BoxShape3D_iqarr")
-
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0770949, 1.0786, 0.244031)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.077, 1.507, 0.244)
 pixel_size = 0.002
 texture = ExtResource("3_74pd8")
 hframes = 5
 vframes = 5
 
 [node name="Dissipate" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0770949, 1.0786, 0.244031)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.077, 1.507, 0.244)
 visible = false
 material_override = SubResource("ShaderMaterial_544sw")
 pixel_size = 0.002
@@ -428,7 +381,6 @@ audio_streams = Array[AudioStream]([ExtResource("7_8rp4x"), ExtResource("8_rxk7w
 
 [connection signal="timeout" from="UpdatePursuitTimer" to="." method="_on_update_pursuit_timer_timeout"]
 [connection signal="timeout" from="StalkerPatienceTimer" to="." method="_on_stalker_patience_timer_timeout"]
-[connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

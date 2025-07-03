@@ -32,6 +32,7 @@ enum EnemyState {
 @onready var talks : AudioStreamPlayer3D = $RandomSFXAudioPlayer3D
 
 var enemy_ready := false
+var dying := false
 
 var current_target : Vector3 : set = _set_current_target
 var target_direction : Vector3
@@ -154,10 +155,6 @@ func _on_update_pursuit_timer_timeout() -> void:
 	
 	can_target_player = get_parent().is_point_in_boundary(curr_player.global_position)
 	current_target = curr_player.global_position
-				
-
-func _on_player_collision(_body: Node3D) -> void:
-	player_collided.emit()
 
 func _to_string() -> String:
 	return "Enemy: %s\nCurrent_State = %s\nstalker_patience = %.2f\n" % \
@@ -172,7 +169,7 @@ func _on_stalker_patience_timer_timeout() -> void:
 	stalker_patience.stop()
 	
 func _on_death_timer_timeout() -> void:
-
+	dying = true
 	set_physics_process(false)
 	talks.play_random()
 	animations.play("dissipate")

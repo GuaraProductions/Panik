@@ -12,6 +12,7 @@ const GROUP_NAME = "Player"
 signal page_grabbed(page: Paper)
 signal enemy_entered_screen()
 signal enemy_exited_screen()
+signal enemy_collided()
 
 @export var player_control : PlayerControl
 @export_range(1000,7000,1) var enemy_detection_raycast_length = 5000
@@ -195,3 +196,14 @@ func get_spawners_in_area() -> Array:
 func _on_exausted_timer_timeout() -> void:
 	breathing_sound.stop_with_fade_out()
 	exausted_timer.stop()
+
+
+func _on_enemy_collision_body_entered(body: Node3D) -> void:
+	print("body: ", body)
+	if body is not Enemy:
+		return
+		
+	if body.dying:
+		return
+		
+	enemy_collided.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://borreuqbvcvao"]
+[gd_scene load_steps=19 format=3 uid="uid://borreuqbvcvao"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_trg2c"]
 [ext_resource type="Resource" uid="uid://ixfgne8nn3j6" path="res://Entities/Player/PlayerControl.tres" id="2_10jux"]
@@ -23,6 +23,9 @@ radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2o7pc"]
 size = Vector3(0.813049, 2.00677, 0.800445)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h5mfe"]
+size = Vector3(1.46826, 2.09177, 1.48395)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 25
@@ -81,4 +84,13 @@ script = ExtResource("7_fouev")
 [node name="ExaustedTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="EnemyCollision" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00512695, -0.0146942, 0.0403748)
+shape = SubResource("BoxShape3D_h5mfe")
+
 [connection signal="timeout" from="ExaustedTimer" to="." method="_on_exausted_timer_timeout"]
+[connection signal="body_entered" from="EnemyCollision" to="." method="_on_enemy_collision_body_entered"]
