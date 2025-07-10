@@ -199,7 +199,6 @@ func _on_exausted_timer_timeout() -> void:
 
 
 func _on_enemy_collision_body_entered(body: Node3D) -> void:
-	print("body: ", body)
 	if body is not Enemy:
 		return
 		

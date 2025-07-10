@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1tsuuoctjlee"]
+[gd_scene load_steps=11 format=3 uid="uid://d1tsuuoctjlee"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_2khi4"]
 [ext_resource type="Theme" uid="uid://c20f53un07mbk" path="res://UI/GameTheme.tres" id="1_v1epl"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_oxuoh"]
 font_size = 102
+
+[sub_resource type="LabelSettings" id="LabelSettings_icg24"]
+font_size = 24
 
 [sub_resource type="Animation" id="Animation_5et3m"]
 resource_name = "FadeIn"
@@ -326,6 +329,15 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "PaNik"
 label_settings = SubResource("LabelSettings_oxuoh")
+horizontal_alignment = 1
+
+[node name="VersionNumber" type="Label" parent="Margin"]
+material = SubResource("ShaderMaterial_v4osb")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Versão 1.1"
+label_settings = SubResource("LabelSettings_icg24")
 horizontal_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="Margin"]

@@ -17,7 +17,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:texture")
+tracks/0/path = NodePath("CenterContainer/TextureRect:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -29,7 +29,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/path = NodePath("CenterContainer/TextureRect:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -56,7 +56,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:texture")
+tracks/0/path = NodePath("CenterContainer/TextureRect:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +68,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/path = NodePath("CenterContainer/TextureRect:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -107,22 +107,24 @@ size_flags_vertical = 6
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_cwnf2")
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+custom_minimum_size = Vector2(616, 708)
+layout_mode = 2
+texture = ExtResource("2_usyhh")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_u5wpa")
 }
 autoplay = "Jumpscare"
-
-[node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(616, 708)
-layout_mode = 2
-offset_left = 332.0
-offset_top = 6.0
-offset_right = 948.0
-offset_bottom = 714.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_usyhh")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_bpiip")

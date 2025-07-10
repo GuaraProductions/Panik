@@ -1,18 +1,29 @@
 extends Node3D
 
+@export_category("Nodes")
 @export var hud : HUD
+@export_category("PackedScene")
 @export var game_over_scene : PackedScene
 @export var jumpscare_scene : PackedScene
 @export var bad_ending_scene : PackedScene
 @export var you_win_scene : PackedScene
+@export_category("Resource")
+@export var night_environment = Environment
+@export var day_environment = Environment
+@export_category("Debug")
+@export var debug_ending : bool = false
+@export var god_mode : bool = false
+@export var no_jumpscare: bool = false
+@export var faster_player: bool = false
+@export var nightmare_mode : bool = false
+@export var spawn_enemy_at_ready : bool = false
+@export var spawn_decoy_at_ready : bool = false
+
 @onready var music_player: MusicController = $Music
 @onready var shaders_screen : CanvasLayer = $Shaders
-
 @onready var enemy_spawner : EnemySpawner = $EnemySpawnHandler
 @onready var final_cutcene_spawn : Marker3D = $FinalCutcene
 
-@export var night_environment = Environment
-@export var day_environment = Environment
 @onready var world_environment = $WorldEnvironment
 @onready var animation_player = $FinalCutcene/AnimationPlayer
 @onready var player : Player = $Player
@@ -25,8 +36,21 @@ var num_pages : int = 0
 
 func _ready() -> void:
 	music_player.play_night_ambience()
-	#page_counter = 7
-	#player_got_all_pages()
+	
+	if spawn_decoy_at_ready:
+		enemy_spawner.decoy_active = true
+		enemy_spawner.max_decoys = 1
+		
+	if spawn_enemy_at_ready:
+		enemy_spawner.active = true
+		enemy_spawner.max_enemies = 1
+	
+	if debug_ending:
+		page_counter = 7
+		player_got_all_pages()
+		
+	if faster_player:
+		player.walking_speed = 15
 	
 	var paper_spawners = get_tree().get_nodes_in_group(PaperSpawner.GROUP_NAME)
 	
@@ -56,17 +80,27 @@ func player_grabbed_page(page: Paper) -> void:
 	if page_counter == 1:
 		music_player.play_horror_ambience()
 		enemy_spawner.active = true
+		if nightmare_mode:
+			enemy_spawner.max_enemies = 5
+			enemy_spawner.enemy_difficulty = 3
 		
 	elif page_counter == 2:
 		enemy_spawner.decoy_active = true
 		enemy_spawner.max_decoys = 1
 	
+	elif page_counter == 4:
+		enemy_spawner.enemy_difficulty = 2
+		enemy_spawner.decoy_difficulty = 2
+	
 	elif page_counter == 5:
 		enemy_spawner.max_enemies = 2
+
 		
 	elif page_counter == 6:
 		enemy_spawner.max_enemies = 3
-		enemy_spawner.max_decoys = 2
+		enemy_spawner.max_decoys = 3
+		enemy_spawner.enemy_difficulty = 3
+		enemy_spawner.decoy_difficulty = 3
 	
 	if page:
 		page.grab()
@@ -76,7 +110,10 @@ func player_grabbed_page(page: Paper) -> void:
 		player_got_all_pages()
 
 func _jumpscare_trigger() -> void:
-	$AnimationPlayer.play("Jumpscare")
+	get_tree().call_group(Jester.GROUP_NAME,"queue_free")
+	
+	if not no_jumpscare:
+		$AnimationPlayer.play("Jumpscare")
 
 func _fake_jumpscare_trigger() -> void:
 	$AnimationPlayer.play("FakeJumpscare")
@@ -87,6 +124,7 @@ func _on_enemy_spawn_handler_spawn_enemy(enemy: Node3D, spawn: Vector3) -> void:
 		enemy.trigger_jumpscare.connect(_jumpscare_trigger, CONNECT_ONE_SHOT)
 		enemy.trigger_fake.connect(_fake_jumpscare_trigger, CONNECT_ONE_SHOT)
 	
+	print("adicionado!!")
 	add_child(enemy)
 	
 	enemy.set_deferred("global_position", spawn)
@@ -133,6 +171,10 @@ func get_good_ending() -> void:
 	player.set_process(true)
 	
 func enemy_got_player() -> void:
+	
+	if god_mode:
+		return
+	
 	await instantiate_jumpscare()
 	
 	get_tree().change_scene_to_packed.call_deferred(game_over_scene)
@@ -145,6 +187,7 @@ func instantiate_jumpscare() -> void:
 	
 	var scene : Control = jumpscare_scene.instantiate()
 	
+	scene.z_index = 1
 	add_child.call_deferred(scene)
 	
 	await scene.jumpscare_finished

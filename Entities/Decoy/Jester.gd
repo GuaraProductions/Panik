@@ -28,6 +28,7 @@ var can_target_player: bool = false
 var curr_player : Player
 
 func _ready() -> void:
+	add_to_group(GROUP_NAME)
 	player_collided.connect(collided_with_player)
 	enemy_setup.call_deferred()
 

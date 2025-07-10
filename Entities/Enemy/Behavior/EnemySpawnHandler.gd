@@ -30,6 +30,9 @@ const DISTANCE_TO_FILTER : float = 25
 var enemy_spawned_count : int = 0
 var decoy_spawned_count : int = 0
 
+var enemy_difficulty : int = 1
+var decoy_difficulty : int = 1
+
 var _spawners : Array[Node]
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -110,11 +113,30 @@ func _cant_spawn_decoy() -> bool:
 func _on_timer_timeout() -> void:
 	
 	if _cant_spawn_enemy():
+		print("não spawnado")
+		print("active: ", active)
+		print("enemy_spawned_count >= max_enemies: ", enemy_spawned_count >= max_enemies)
+		print("\tenemy_spawned_count: ", enemy_spawned_count )
+		print("\tmax_enemies: ", max_enemies )
+		print("_spawners.is_empty(): ", _spawners.is_empty() )
+		print("player: ", player )
+		print("enemy_scene: ", enemy_scene )
 		return
-	
-	var spawn_enemy_chance = rng.randf_range(0,1)
 		
 	var enemy_instance : Enemy = enemy_scene.instantiate()
+	
+	match enemy_difficulty:
+		1:
+			pass
+		2:
+			enemy_instance.walking_speed = 8
+			enemy_instance.intimidated_speed = 4
+			enemy_instance.running_speed = 16
+		3:
+			enemy_instance.walking_speed = 10
+			enemy_instance.intimidated_speed = 5
+			enemy_instance.running_speed = 20
+	
 	enemy_instance.tree_exited.connect(enemy_despawned.bind(enemy_instance))
 	enemies.append(enemy_instance)
 	enemy_spawned_count += 1
@@ -128,10 +150,17 @@ func _on_decoy_timer_timeout() -> void:
 	
 	if _cant_spawn_decoy():
 		return
-	
-	var spawn_enemy_chance = rng.randf_range(0,1)
 		
 	var decoy_instance : Jester = decoy_scene.instantiate()
+	
+	match decoy_difficulty:
+		1:
+			pass
+		2:
+			decoy_instance.running_speed = 16
+		3:
+			decoy_instance.running_speed = 20
+
 	decoy_instance.tree_exited.connect(decoy_despawned.bind(decoy_instance))
 	enemies.append(decoy_instance)
 	decoy_spawned_count += 1
